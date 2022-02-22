@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales Manager</title>
+</head>
+<body>
+<div align="center">
+    <h1>Sales Records</h1>
+    <a href="/new">Enter new record</a>
+    <table border="1" cellpadding="10">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Item name</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="sale: ${listSale}">
+                <td th:text="${sale.id}">ID</td>
+                <td th:text="${sale.item}">Name</td>
+                <td th:text="${sale.quantity}">Quantity</td>
+                <td th:text="${sale.amount}">Amount</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
