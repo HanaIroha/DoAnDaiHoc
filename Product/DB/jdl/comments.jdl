@@ -1,0 +1,14 @@
+entity Comments{
+	@Id IdComment Long,
+    IdUser Long,
+    IdProduct Long,
+    IdParentComment Long,
+    Content String,
+    CreatedAt ZonedDateTime,
+    UpdatedAt ZonedDateTime,
+}
+
+dto * with mapstruct
+paginate * with pagination
+service * with serviceClass
+service * with serviceImpl

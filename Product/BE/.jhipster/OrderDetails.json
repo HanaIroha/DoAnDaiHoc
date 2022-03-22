@@ -1,0 +1,47 @@
+{
+  "applications": "*",
+  "changelogDate": "20220305115041",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "order_details",
+  "fields": [
+    {
+      "fieldName": "idOrderDetail",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "idOrder",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "idProduct",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "quantity",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "OrderDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

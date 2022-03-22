@@ -1,0 +1,39 @@
+{
+  "applications": "*",
+  "changelogDate": "20220304172023",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "categories",
+  "fields": [
+    {
+      "fieldName": "idCategory",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "parentId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Categories",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

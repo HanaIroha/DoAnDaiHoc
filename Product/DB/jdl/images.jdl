@@ -1,0 +1,10 @@
+entity Images{
+	@Id IdImage Long,
+    IdProduct Long,
+    ImageUrl String,
+}
+
+dto * with mapstruct
+paginate * with pagination
+service * with serviceClass
+service * with serviceImpl

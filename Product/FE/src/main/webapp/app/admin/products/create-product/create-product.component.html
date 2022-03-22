@@ -1,0 +1,361 @@
+<div class="d-flex justify-content-center">
+    <div class="col-8">
+      <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <h2 id="myUserLabel" >Tạo mới hoặc sửa sản phẩm</h2>
+  
+        <div>
+          <jhi-alert-error></jhi-alert-error>
+  
+          <div class="mb-3" [hidden]="!product.idProduct">
+            <label >ID</label>
+            <input type="text" class="form-control" name="idProduct" formControlName="idProduct" readonly />
+          </div>
+
+          <div class="row">
+            <div class="mb-3 col">
+                <label class="form-label">Tên</label>
+                <input type="text" class="form-control" name="name" formControlName="name" />
+      
+                <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small>
+      
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('name')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 45 }"
+                  >
+                    This field cannot be longer than 50 characters.
+                  </small>
+                </div>
+              </div>
+    
+              <div class="mb-3 col">
+                <label class="form-label">Mã sản phẩm</label>
+                <input type="text" class="form-control" name="code" formControlName="code" />
+      
+                <div *ngIf="editForm.get('code')!.invalid && (editForm.get('code')!.dirty || editForm.get('code')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('code')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small>
+      
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('code')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 45 }"
+                  >
+                    This field cannot be longer than 45 characters.
+                  </small>
+                </div>
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="mb-3 col">
+                <label class="form-label">Giá</label>
+                <input type="text" class="form-control" name="price" formControlName="price" />
+      
+                <div *ngIf="editForm.get('price')!.invalid && (editForm.get('price')!.dirty || editForm.get('price')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('price')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small>
+                </div>
+              </div>
+    
+              <div class="mb-3 col">
+                <label class="form-label">Tỉ lệ giảm giá</label>
+                <input type="text" class="form-control" name="salePercent" formControlName="salePercent" />
+              </div>
+
+              <div class="mb-3 col">
+                <label class="form-label">Số lượng</label>
+                <input type="text" class="form-control" name="quantity" formControlName="quantity" />
+      
+                <div *ngIf="editForm.get('quantity')!.invalid && (editForm.get('quantity')!.dirty || editForm.get('quantity')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('quantity')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small>
+                </div>
+              </div>
+              
+          </div>
+
+          <div class="row">
+            <div class="mb-3 col">
+                <label class="form-label">Loại SIM hỗ trợ</label>
+                <input type="text" class="form-control" name="supportSim" formControlName="supportSim" />
+              </div>
+    
+              <div class="mb-3 col">
+                <label class="form-label">Màu sắc</label>
+                <input type="text" class="form-control" name="color" formControlName="color" />
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="mb-3 col">
+                  <label class="form-label">Danh mục</label>
+                  <select class="form-control" name="idCategory" formControlName="idCategory">
+                    <option *ngFor="let item of categories" [value]="item.idCategory">{{item.name}}</option> 
+                  </select>
+                  <div *ngIf="editForm.get('idCategory')!.invalid && (editForm.get('idCategory')!.dirty || editForm.get('idCategory')!.touched)">
+                    <small class="form-text text-danger" *ngIf="editForm.get('idCategory')?.errors?.required" jhiTranslate="entity.validation.required">
+                      This field is required.
+                    </small>
+                  </div>
+              </div>
+
+              <div class="mb-3 col">
+                <label class="form-label">Nhà sản xuất</label>
+                <select class="form-control" name="idProducer" formControlName="idProducer">
+                  <option *ngFor="let item of producers" [value]="item.idProducer">{{item.name}}</option> 
+                </select>
+                <div *ngIf="editForm.get('idProducer')!.invalid && (editForm.get('idProducer')!.dirty || editForm.get('idProducer')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('idProducer')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small>
+                </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="mb-3 col">
+                <label class="form-label">Dung lượng PIN</label>
+                <input type="text" class="form-control" name="pin" formControlName="pin" />
+      
+                <div *ngIf="editForm.get('pin')!.invalid && (editForm.get('pin')!.dirty || editForm.get('pin')!.touched)">
+                  <!-- <small class="form-text text-danger" *ngIf="editForm.get('pin')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small> -->
+      
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('pin')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 100 }"
+                  >
+                    This field cannot be longer than 100 characters.
+                  </small>
+                </div>
+              </div>
+    
+              <div class="mb-3 col">
+                <label class="form-label">Màn hình</label>
+                <input type="text" class="form-control" name="monitor" formControlName="monitor" />
+      
+                <div *ngIf="editForm.get('monitor')!.invalid && (editForm.get('monitor')!.dirty || editForm.get('monitor')!.touched)">
+                  <!-- <small class="form-text text-danger" *ngIf="editForm.get('monitor')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small> -->
+      
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('monitor')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 100 }"
+                  >
+                    This field cannot be longer than 100 characters.
+                  </small>
+                </div>
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="mb-3 col">
+                <label class="form-label">Camera trước</label>
+                <input type="text" class="form-control" name="frontCamera" formControlName="frontCamera" />
+      
+                <div *ngIf="editForm.get('frontCamera')!.invalid && (editForm.get('frontCamera')!.dirty || editForm.get('frontCamera')!.touched)">
+                  <!-- <small class="form-text text-danger" *ngIf="editForm.get('frontCamera')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small> -->
+      
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('frontCamera')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 100 }"
+                  >
+                    This field cannot be longer than 100 characters.
+                  </small>
+                </div>
+              </div>
+    
+              <div class="mb-3 col">
+                <label class="form-label">Camera sau</label>
+                <input type="text" class="form-control" name="rearCamera" formControlName="rearCamera" />
+      
+                <div *ngIf="editForm.get('rearCamera')!.invalid && (editForm.get('rearCamera')!.dirty || editForm.get('rearCamera')!.touched)">
+                  <!-- <small class="form-text text-danger" *ngIf="editForm.get('rearCamera')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small> -->
+      
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('rearCamera')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 100 }"
+                  >
+                    This field cannot be longer than 100 characters.
+                  </small>
+                </div>
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="mb-3 col">
+                <label class="form-label">Chip CPU</label>
+                <input type="text" class="form-control" name="cPU" formControlName="cPU" />
+      
+                <div *ngIf="editForm.get('cPU')!.invalid && (editForm.get('cPU')!.dirty || editForm.get('cPU')!.touched)">
+                  <!-- <small class="form-text text-danger" *ngIf="editForm.get('frontCamera')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small> -->
+      
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('cPU')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 100 }"
+                  >
+                    This field cannot be longer than 100 characters.
+                  </small>
+                </div>
+              </div>
+    
+              <div class="mb-3 col">
+                <label class="form-label">Chip GPU</label>
+                <input type="text" class="form-control" name="gPU" formControlName="gPU" />
+      
+                <div *ngIf="editForm.get('gPU')!.invalid && (editForm.get('gPU')!.dirty || editForm.get('gPU')!.touched)">
+                  <!-- <small class="form-text text-danger" *ngIf="editForm.get('rearCamera')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small> -->
+      
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('gPU')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 100 }"
+                  >
+                    This field cannot be longer than 100 characters.
+                  </small>
+                </div>
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="mb-3 col">
+                <label class="form-label">Dung lượng RAM</label>
+                <select class="form-control" name="rAM" formControlName="rAM">
+                  <option value="2GB" >2GB RAM</option> 
+                  <option value="3GB" >3GB RAM</option> 
+                  <option value="4GB" >4GB RAM</option> 
+                  <option value="6GB" >6GB RAM</option> 
+                  <option value="8GB" >8GB RAM</option> 
+                  <option value="12GB" >12GB RAM</option> 
+                  <option value="16GB" >16GB RAM</option> 
+                </select>
+                <!-- <input type="text" class="form-control" name="rAM" formControlName="rAM" /> -->
+      
+                <div *ngIf="editForm.get('rAM')!.invalid && (editForm.get('rAM')!.dirty || editForm.get('rAM')!.touched)">
+                  <!-- <small class="form-text text-danger" *ngIf="editForm.get('frontCamera')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small> -->
+      
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('rAM')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 100 }"
+                  >
+                    This field cannot be longer than 100 characters.
+                  </small>
+                </div>
+              </div>
+
+              <div class="mb-3 col">
+                <label class="form-label">Dung lượng bộ nhớ trong</label>
+                <select class="form-control" class="form-control" name="rOM" formControlName="rOM">
+                  <option value="8GB" >8GB ROM</option> 
+                  <option value="16GB" >16GB ROM</option> 
+                  <option value="32GB" >32GB ROM</option> 
+                  <option value="64GB" >64GB ROM</option> 
+                  <option value="128GB" >128GB ROM</option> 
+                  <option value="256GB" >256GB ROM</option> 
+                  <option value="512GB" >512GB ROM</option>  
+                </select>
+                <!-- <input type="text" class="form-control" name="rOM" formControlName="rOM" /> -->
+                
+      
+                <div *ngIf="editForm.get('rOM')!.invalid && (editForm.get('rOM')!.dirty || editForm.get('rOM')!.touched)">
+                  <!-- <small class="form-text text-danger" *ngIf="editForm.get('frontCamera')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small> -->
+      
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('rOM')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 100 }"
+                  >
+                    This field cannot be longer than 100 characters.
+                  </small>
+                </div>
+              </div>
+    
+              <div class="mb-3 col">
+                <label class="form-label">Hệ điều hành</label>
+                <select class="form-control" class="form-control" name="oS" formControlName="oS">
+                  <option value="Android" >Hệ điều hành Android</option> 
+                  <option value="iOS" >Hệ điều hành iOS</option>
+                </select>
+                <!-- <input type="text" class="form-control" name="oS" formControlName="oS" /> -->
+      
+                <div *ngIf="editForm.get('oS')!.invalid && (editForm.get('oS')!.dirty || editForm.get('oS')!.touched)">
+                  <!-- <small class="form-text text-danger" *ngIf="editForm.get('rearCamera')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small> -->
+      
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('oS')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 100 }"
+                  >
+                    This field cannot be longer than 100 characters.
+                  </small>
+                </div>
+              </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Thông tin chi tiết</label>
+            <textarea rows="4" class="form-control" name="informationDetails" formControlName="informationDetails"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="input-group-text">Ảnh đại diện</label>
+          <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+              <img [src]="url ? url : defaultImage" height="400px">
+          </div>
+          <input #file type="file" accept='image/*' class="form-control" name="image" formControlName="image" (change)="preview(file.files)" >
+        </div>
+          
+
+        </div>
+        <div>
+          <button type="button" class="btn btn-secondary" (click)="previousState()">
+            <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+          </button>
+  
+          <button type="submit" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+            <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,35 @@
+{
+  "applications": "*",
+  "changelogDate": "20220305115153",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "producers",
+  "fields": [
+    {
+      "fieldName": "idProducer",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Producers",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

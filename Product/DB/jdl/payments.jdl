@@ -1,0 +1,12 @@
+entity Payments{
+	@Id IdPayment Long,
+    Name String,
+    Description String,
+    CreatedAt ZonedDateTime,
+    UpdatedAt ZonedDateTime,
+}
+
+dto * with mapstruct
+paginate * with pagination
+service * with serviceClass
+service * with serviceImpl

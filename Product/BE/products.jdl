@@ -1,0 +1,31 @@
+entity Products{
+	@Id IdProduct Long,
+    IdCategory Long,
+    IdProducer Long,
+    Name String,
+    Image String,
+    Code String,
+	Price Long,
+	SalePercent Long,
+	Quantity Long,
+	SupportSim String,
+    Monitor String,
+	Color String,
+    FrontCamera String,
+    RearCamera String,
+    CPU String,
+    GPU String,
+    RAM String,
+	ROM String,
+    OS String,
+    Pin String,
+    InformationDetails String,
+    CreatedAt ZonedDateTime,
+    UpdatedAt ZonedDateTime,
+    IsDisable Boolean
+}
+
+dto * with mapstruct
+paginate * with pagination
+service * with serviceClass
+service * with serviceImpl

@@ -1,0 +1,63 @@
+{
+  "applications": "*",
+  "changelogDate": "20220305115111",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "orders",
+  "fields": [
+    {
+      "fieldName": "idOrder",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "login",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "phone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "address",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderStatus",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "idPayment",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Orders",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

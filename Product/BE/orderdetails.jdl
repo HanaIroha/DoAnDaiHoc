@@ -1,0 +1,14 @@
+entity OrderDetails{
+	@Id IdOrderDetail Long,
+    IdOrder Long,
+    IdProduct Long,
+    Quantity Long,
+    Price Long,
+    CreatedAt ZonedDateTime,
+    UpdatedAt ZonedDateTime,
+}
+
+dto * with mapstruct
+paginate * with pagination
+service * with serviceClass
+service * with serviceImpl

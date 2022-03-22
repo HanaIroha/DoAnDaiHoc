@@ -1,0 +1,35 @@
+<div class="d-flex justify-content-center">
+    <div class="col-8">
+      <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <h2 id="myUserLabel" >Thêm mới ảnh</h2>
+  
+        <div>
+          <jhi-alert-error></jhi-alert-error>
+  
+          <div class="mb-3" [hidden]="!image.idImage">
+            <label >ID</label>
+            <input type="text" class="form-control" name="idImage" formControlName="idImage" readonly />
+          </div>
+  
+          <div class="mb-3">
+            <label class="input-group-text">Ảnh</label>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                <img [src]="url ? url : defaultImage" height="800px">
+            </div>
+            <input #file type="file" accept='image/*' class="form-control" name="image" formControlName="image" (change)="preview(file.files)" >
+          </div>
+        </div>
+  
+        <div>
+          <button type="button" class="btn btn-secondary" (click)="previousState()">
+            <fa-icon icon="ban"></fa-icon>&nbsp;<span >Huỷ</span>
+          </button>
+  
+          <button type="submit" [disabled]=" isSaving" class="btn btn-primary">
+            <fa-icon icon="save"></fa-icon>&nbsp;<span >Lưu</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

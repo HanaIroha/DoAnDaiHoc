@@ -1,0 +1,18 @@
+entity Orders{
+	@Id IdOrder Long,
+    IdUser Long,
+    OrderCode String,
+    Name String,
+    Phone String,
+    Email String,
+    Address String,
+    OrderStatus Long,
+    IdPayment Long,
+    CreatedAt ZonedDateTime,
+    UpdatedAt ZonedDateTime,
+}
+
+dto * with mapstruct
+paginate * with pagination
+service * with serviceClass
+service * with serviceImpl

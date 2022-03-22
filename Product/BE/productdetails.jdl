@@ -1,0 +1,17 @@
+entity ProductDetails{
+	@Id IdProductDetail Long,
+    IdProduct Long,
+    Rom String,
+    Color String,
+    ImportQuantity Long,
+    Quantity Long,
+    ImportPrice Long,
+    SalePrice Long,
+    CreatedAt ZonedDateTime,
+    UpdatedAt ZonedDateTime,
+}
+
+dto * with mapstruct
+paginate * with pagination
+service * with serviceClass
+service * with serviceImpl

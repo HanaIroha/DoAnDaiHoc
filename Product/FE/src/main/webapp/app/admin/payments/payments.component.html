@@ -1,0 +1,83 @@
+<div>
+    <h2>
+      <span id="user-management-page-heading">Phương thức thanh toán</span>
+  
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span>Làm mới</span>
+        </button>
+        <button class="btn btn-primary jh-create-entity" [routerLink]="['new']">
+          <fa-icon icon="plus"></fa-icon> <span>Tạo mới phương thức</span>
+        </button>
+      </div>
+    </h2>
+  
+    <jhi-alert-error></jhi-alert-error>
+  
+    <jhi-alert></jhi-alert>
+  
+    <div class="table-responsive" *ngIf="payments">
+      <table class="table table-striped" aria-describedby="user-management-page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="transition()">
+            <th scope="col" jhiSortBy="idPayment"><span >ID</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="name"><span >Tên</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="description"><span >Chi tiết</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="createdAt"><span >Ngày tạo</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="updatedAt"> <span >Ngày cập nhật</span> <fa-icon icon="sort"></fa-icon> </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="payments">
+          <tr *ngFor="let item of payments; trackBy: trackIdentity">
+            <td>{{ item.idPayment }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.createdAt | date: 'dd/MM/yy HH:mm' }}</td>
+            <td>{{ item.updatedAt | date: 'dd/MM/yy HH:mm' }}</td>
+            <td class="text-end">
+              <div class="btn-group">
+                <!-- <button type="submit" [routerLink]="['createCategories']" class="btn btn-info btn-sm">
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline" >View</span>
+                </button> -->
+  
+                <button type="submit" [routerLink]="['edit', item.idPayment]" class="btn btn-primary btn-sm">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" >Chỉnh sửa</span>
+                </button>
+  
+                <button
+                  type="button"
+                  (click)="deleteCategory(item.idPayment)"
+                  class="btn btn-danger btn-sm"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" >Xoá</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="payments">
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+  
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [(page)]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="transition()"
+        ></ngb-pagination>
+      </div>
+    </div>
+  </div>
