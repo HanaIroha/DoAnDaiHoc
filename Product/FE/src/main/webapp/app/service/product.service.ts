@@ -29,13 +29,13 @@ export class ProductService {
     return this.http.get<IProduct>(`${this.applicationConfigService.getEndpointFor('api/products/')}` + id);
   }
 
-  checkExist(data) {
-    return this.http.post<any>(
-      `${this.applicationConfigService.getEndpointFor('api/management/catalogs/checkExist')}`,
-      data,
-      this.httpOptions
-    );
-  }
+  // checkExist(data) {
+  //   return this.http.post<any>(
+  //     `${this.applicationConfigService.getEndpointFor('api/management/catalogs/checkExist')}`,
+  //     data,
+  //     this.httpOptions
+  //   );
+  // }
 
   create(formData: FormData): Observable<any> {
     return this.http.post<IProduct>(this.resourceUrl, formData);
