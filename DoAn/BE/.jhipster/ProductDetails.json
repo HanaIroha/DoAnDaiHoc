@@ -1,0 +1,59 @@
+{
+  "applications": "*",
+  "changelogDate": "20220305115221",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "product_details",
+  "fields": [
+    {
+      "fieldName": "idProductDetail",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "idProduct",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "rom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "color",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "importQuantity",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "quantity",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "importPrice",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "salePrice",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "ZonedDateTime"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ProductDetails",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

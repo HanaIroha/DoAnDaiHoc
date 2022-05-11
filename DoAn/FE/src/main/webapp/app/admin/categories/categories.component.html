@@ -1,0 +1,107 @@
+<div>
+  <h2>
+    <span id="user-management-page-heading">Danh mục</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span >Làm mới</span>
+      </button>
+      <button class="btn btn-primary jh-create-entity" [routerLink]="['new']">
+        <fa-icon icon="plus"></fa-icon> <span>Tạo mới danh mục</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="table-responsive" *ngIf="categories">
+    <table class="table table-striped" aria-describedby="user-management-page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="transition()">
+          <th scope="col" jhiSortBy="idCategory"><span >ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="name"><span >Tên</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="createdAt"><span >Ngày tạo</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="updatedAt"> <span >Ngày cập nhật</span> <fa-icon icon="sort"></fa-icon> </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngIf="categories">
+        <tr *ngFor="let category of categories; trackBy: trackIdentity">
+          <td>{{ category.idCategory }}</td>
+          <td>{{ category.name }}</td>
+          <td>{{ category.createdAt | date: 'dd/MM/yy HH:mm' }}</td>
+          <td>{{ category.updatedAt | date: 'dd/MM/yy HH:mm' }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <!-- <button type="submit" [routerLink]="['createCategories']" class="btn btn-info btn-sm">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" >View</span>
+              </button> -->
+
+              <button type="submit" [routerLink]="['update', category.idCategory]" class="btn btn-primary btn-sm">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" >Chỉnh sửa</span>
+              </button>
+
+              <button
+                type="button"
+                (click)="deleteCategory(category.idCategory)"
+                class="btn btn-danger btn-sm"
+              >
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" >Xoá</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="categories">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="transition()"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="row" style="margin-left: 30px">
+  <div class="col-md-12 col-xs-12">
+    <div class="menu-action-dv">
+      <h3>DANH SÁCH DANH MỤC</h3>
+      <div class="list-action-dv">
+        <button class="btn-action-dv blue" tabindex="0" style="border: none" [routerLink]="['createCategories']">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" width="2" height="12" rx="1" fill="white" />
+            <rect x="12" y="5" width="2" height="12" rx="1" transform="rotate(90 12 5)" fill="white" />
+          </svg>
+          Tạo mới
+        </button>
+      </div>
+    </div>
+
+    <table>
+      <tr *ngFor="let item of datas">
+        <td>{{ item.idCategory }}</td>
+        <td>{{ item.name }}</td>
+        <td><a [routerLink]="['updateCategories', item.idCategory]">Sửa</a></td>
+      </tr>
+    </table>
+  </div>
+</div> -->

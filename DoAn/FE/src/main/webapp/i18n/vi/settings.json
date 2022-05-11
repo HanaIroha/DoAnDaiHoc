@@ -1,0 +1,37 @@
+{
+  "settings": {
+    "title": "Cài đặt người dùng của [<strong>{{username}}</strong>]",
+    "form": {
+      "fullname": "Tên đầy đủ",
+      "fullname.placeholder": "Nhập tên đầy đủ của bạn",
+      "address": "Địa chỉ",
+      "address.placeholder": "Nhập địa chỉ của bạn",
+      "language": "Ngôn ngữ",
+      "button": "Lưu"
+    },
+    "messages": {
+      "error": {
+        "fail": "<strong>Có lỗi xảy ra!</strong> Không thể lưu cài đặt.",
+        "emailexists": "<strong>Email đã được sử dụng!</strong> Vui lòng nhập email khác."
+      },
+      "success": "<strong>Đã lưu cài đặt!</strong>",
+      "validate": {
+        "fullname": {
+          "required": "Bạn phải nhập tên đầy đủ.",
+          "minlength": "Tên đầy đủ phải có ít nhất 1 ký tự",
+          "maxlength": "Tên đầy đủ không được vượt quá 50 ký tự"
+        },
+        "address": {
+          "required": "Bạn phải nhập địa chỉ đủ.",
+          "minlength": "Địa chỉ tên đầy đủ phải có ít nhất 1 ký tự",
+          "maxlength": "Địa chỉ tên đầy đủ không được vượt quá 50 ký tự"
+        },
+        "phonenumber": {
+          "required": "Bạn số điện thoại địa chỉ đủ.",
+          "minlength": "Số điện thoại  phải có ít nhất 1 ký tự",
+          "maxlength": "Số điện thoại  không được vượt quá 50 ký tự"
+        }
+      }
+    }
+  }
+}

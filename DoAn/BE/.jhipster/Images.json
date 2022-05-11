@@ -1,0 +1,31 @@
+{
+  "applications": "*",
+  "changelogDate": "20220305213025",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "images",
+  "fields": [
+    {
+      "fieldName": "idImage",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "idProduct",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "imageUrl",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Images",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

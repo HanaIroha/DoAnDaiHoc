@@ -1,0 +1,88 @@
+<div>
+    <h2>
+      <span id="user-management-page-heading">Orders</span>
+  
+      <div class="d-flex justify-content-end">
+        <div class="col-2">
+            <select [(ngModel)]="statusOption" class="form-control" id="filterRom">
+                <option value="4" selected>Tất cả</option>
+                <option value="0" >Chờ duyệt</option> 
+                <option value="1" >Đã duyệt</option> 
+                <option value="2" >Đã huỷ</option>
+              </select>
+        </div>
+        <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span >Làm mới</span>
+        </button>
+      </div>
+    </h2>
+  
+    <jhi-alert-error></jhi-alert-error>
+  
+    <jhi-alert></jhi-alert>
+  
+    <div class="table-responsive" *ngIf="orders">
+      <table class="table table-striped" aria-describedby="user-management-page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="transition()">
+            <th scope="col"><span >Ngày mua</span></th>
+            <th scope="col"><span >Giá trị đơn hàng</span></th>
+            <th scope="col"><span >Trạng thái</span></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="orders">
+          <tr *ngFor="let item of orders; trackBy: trackIdentity; let i =index">
+            <td>{{ item.idOrder | date: 'dd/MM/yy HH:mm' }}</td>
+            <td>{{ ordervalue[i] | number }}đ</td>
+            <td>{{ item.orderStatus==0?"Chờ duyệt": item.orderStatus==1? "Đã duyệt" : "Đã huỷ"}}</td>
+            <td class="text-end">
+              <div class="btn-group">
+                <!-- <button type="submit" [routerLink]="['createCategories']" class="btn btn-info btn-sm">
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline" >View</span>
+                </button> -->
+                <button type="submit" class="btn btn-secondary btn-sm" [routerLink]="['detail', item.idOrder]">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" >Xem chi tiết</span>
+                  </button>
+  
+                <button type="submit" (click)="setStatus(item.idOrder,1)" class="btn btn-primary btn-sm" [disabled]="item.orderStatus!=0">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" >Duyệt đơn</span>
+                </button>
+  
+                <button
+                  type="button"
+                  (click)="setStatus(item.idOrder,2)"
+                  class="btn btn-danger btn-sm" [disabled]="item.orderStatus!=0"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" >Huỷ đơn</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="orders">
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+  
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [(page)]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="transition()"
+        ></ngb-pagination>
+      </div>
+    </div>
+  </div>

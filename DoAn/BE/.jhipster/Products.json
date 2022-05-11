@@ -1,0 +1,115 @@
+{
+  "applications": "*",
+  "changelogDate": "20220305115243",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "products",
+  "fields": [
+    {
+      "fieldName": "idProduct",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "idCategory",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "idProducer",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "salePercent",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "quantity",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "supportSim",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "monitor",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "color",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "frontCamera",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rearCamera",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cPU",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "gPU",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rAM",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "rOM",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "oS",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "informationDetails",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "isDisable",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Products",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

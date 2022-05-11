@@ -1,0 +1,134 @@
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5" [style.background-image]="'url(/content/images/BG1.jpg)'" style="-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Thanh toán</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="">Trang chủ</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Thanh Toán</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+
+
+<!-- Checkout Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-8">
+            <div class="mb-4">
+                <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Họ và tên</label>
+                        <input [(ngModel)]="order.name" class="form-control" type="text" placeholder="Hana Iroha..." [value]="account.fullname">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Số điện thoại</label>
+                        <input [(ngModel)]="order.phone" class="form-control" type="text" placeholder="+123 456 789" [value]="account.phonenumber">
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label>Địa chỉ nhận hàng</label>
+                        <input [(ngModel)]="order.address" class="form-control" type="text" placeholder="Tuyên Quang...">
+                    </div>
+                </div>
+            </div>
+            <div class="collapse mb-4" id="shipping-address">
+                <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>First Name</label>
+                        <input class="form-control" type="text" placeholder="John">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Last Name</label>
+                        <input class="form-control" type="text" placeholder="Doe">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>E-mail</label>
+                        <input class="form-control" type="text" placeholder="example@email.com">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Mobile No</label>
+                        <input class="form-control" type="text" placeholder="+123 456 789">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Address Line 1</label>
+                        <input class="form-control" type="text" placeholder="123 Street">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Address Line 2</label>
+                        <input class="form-control" type="text" placeholder="123 Street">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Country</label>
+                        <select class="custom-select">
+                            <option selected>United States</option>
+                            <option>Afghanistan</option>
+                            <option>Albania</option>
+                            <option>Algeria</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>City</label>
+                        <input class="form-control" type="text" placeholder="New York">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>State</label>
+                        <input class="form-control" type="text" placeholder="New York">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>ZIP Code</label>
+                        <input class="form-control" type="text" placeholder="123">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Tổng đơn hàng</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="font-weight-medium mb-3">Sản phẩm</h5>
+                    <ng-container *ngFor="let item of data;let i = index">
+                        <div class="d-flex justify-content-between">
+                            <p>{{item.name}} | {{item.quantity}}</p>
+                            <p>{{(item.price*item.quantity)|number}}đ</p>
+                        </div>
+                    </ng-container>
+                    <hr class="mt-0">
+                    <div class="d-flex justify-content-between mb-3 pt-1">
+                        <h6 class="font-weight-medium">Tổng tiền sản phẩm</h6>
+                        <h6 class="font-weight-medium">{{allPrice|number}}đ</h6>
+                    </div>
+                </div>
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="font-weight-bold">Tổng tiền</h5>
+                        <h5 class="font-weight-bold">{{allPrice|number}}đ</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Phương thức thanh toán</h4>
+                </div>
+                <div class="card-body">
+                    <ng-container *ngFor="let item of payments">
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input [(ngModel)]="order.idPayment" type="radio" class="custom-control-input" name="payment" id="{{item.name}}" value="{{item.idPayment}}">
+                                <label class="custom-control-label" for="{{item.name}}">{{item.name}}</label>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="card-footer border-secondary bg-transparent">
+                    <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" (click)="checkout()">Đặt hàng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Checkout End -->

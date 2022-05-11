@@ -1,0 +1,12 @@
+entity Categories{
+	@Id IdCategory Long,
+    Name String,
+    ParentId Long,
+    CreatedAt ZonedDateTime,
+    UpdatedAt ZonedDateTime,
+}
+
+dto * with mapstruct
+paginate * with pagination
+service * with serviceClass
+service * with serviceImpl

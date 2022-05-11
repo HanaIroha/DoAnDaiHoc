@@ -1,0 +1,122 @@
+<div>
+    <h2>
+      <span id="user-management-page-heading">Sản phẩm</span>
+      
+      <div class="d-flex justify-content-end col-lg-12">
+        <div class="d-flex col-lg-6">
+          <select #filterProducer class="form-control" id="filterProducer">
+              <option value="0" selected>Mọi hãng</option> 
+              <option *ngFor="let item of producers" [value]="item.idProducer">{{item.name}}</option> 
+            </select>
+            <select #filterPrice class="form-control" id="filterPrice">
+              <option value="0" selected>Mọi giá</option> 
+              <option value="1" >Dưới 4 triệu</option> 
+              <option value="2" >Từ 4 đến 8 triệu</option> 
+              <option value="3" >Trên 8 triệu</option> 
+              </select>
+              <select #filterRam class="form-control" id="filterRam">
+                <option value="0" selected>Mọi dung lượng RAM</option> 
+                <option value="2GB" >2GB RAM</option> 
+                <option value="3GB" >3GB RAM</option> 
+                <option value="4GB" >4GB RAM</option> 
+                <option value="6GB" >6GB RAM</option> 
+                <option value="8GB" >8GB RAM</option> 
+                <option value="12GB" >12GB RAM</option> 
+                <option value="16GB" >16GB RAM</option> 
+              </select>
+              <select #filterRom class="form-control" id="filterRom">
+                <option value="0" selected>Mọi dung lượng ROM</option>
+                <option value="8GB" >8GB ROM</option> 
+                <option value="16GB" >16GB ROM</option> 
+                <option value="32GB" >32GB ROM</option> 
+                <option value="64GB" >64GB ROM</option> 
+                <option value="128GB" >128GB ROM</option> 
+                <option value="256GB" >256GB ROM</option> 
+                <option value="512GB" >512GB ROM</option>  
+              </select>
+      </div>
+      <div class="d-flex col-lg-3">
+        <input #filterKey class="form-control" id="filterKey" placeholder="Search Keyword" (keyup.enter)="loadAll(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterPrice.value,filterRam.value,filterRom.value)">
+      </div>
+        <div class="d-flex col-lg-3">
+          <button class="btn btn-info me-2" style="width: 750px; height: 60px;" (click)="loadAll(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterPrice.value,filterRam.value,filterRom.value)" [disabled]="isLoading">
+            <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+            <span >Làm mới</span>
+          </button>
+          <button class="btn btn-primary jh-create-entity" style="width: 750px; height: 60px;" [routerLink]="['new']">
+            <fa-icon icon="plus"></fa-icon> <span>Tạo mới sản phẩm</span>
+          </button>
+        </div>
+      </div>
+    </h2>
+  
+    <jhi-alert-error></jhi-alert-error>
+  
+    <jhi-alert></jhi-alert>
+  
+    <div class="table-responsive" *ngIf="products">
+      <table class="table table-striped" aria-describedby="user-management-page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="transition(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterPrice.value,filterRam.value,filterRom.value)">
+            <th scope="col" jhiSortBy="image"><span >Ảnh</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="name"><span >Tên</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="price"><span >Giá | Tỉ lệ giảm giá</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="sale_percent"><span >Giá cuối cùng</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="products">
+          <tr *ngFor="let item of products; trackBy: trackIdentity">
+            <td>
+              <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                  <img [src]="item.image ? imagePath + item.image : defaultImage" height="50px">
+              </div>
+          </td>
+            <td>{{ item.name }}</td>
+            <td>{{ this.item.price | number}}đ | {{ this.item.salePercent ? (this.item.salePercent | number) : 0}}%</td>
+            <td>{{ (this.item.salePercent ? (this.item.price/100*(100-this.item.salePercent)) : this.item.price) | number }}đ</td>
+            <td class="text-end">
+              <div class="btn-group">
+                <button type="submit" [routerLink]="['edit/'+item.idProduct+'/image']" class="btn btn-info btn-sm">
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline" >Hình ảnh</span>
+                </button>
+  
+                <button type="submit" [routerLink]="['edit', item.idProduct]" class="btn btn-primary btn-sm">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" >Chỉnh sửa</span>
+                </button>
+  
+                <button
+                  type="button"
+                  (click)="deleteCategory(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterPrice.value,filterRam.value,filterRom.value,item.idProduct)"
+                  class="btn btn-danger btn-sm"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" >Xoá</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="products">
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+  
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [(page)]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="transition(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterPrice.value,filterRam.value,filterRom.value)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  </div>

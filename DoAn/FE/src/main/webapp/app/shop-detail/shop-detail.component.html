@@ -1,0 +1,235 @@
+<div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width:1000px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+        <!-- Carousel markup: https://getbootstrap.com/docs/4.4/components/carousel/ -->
+        <div id="product-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner border">
+                <div class="carousel-item active" *ngIf="product.image && product.image.length > 0">
+                    <img class="" style="object-fit: cover; height: 800px; width: 100%;" [src]="imagePath + product.image" alt="Image">
+                </div>
+                <ng-container *ngFor="let item of images">
+                    <div class="carousel-item" *ngIf="product.image && product.image.length > 0">
+                        <img class="" style="object-fit: cover; height: 800px; width: 100%;" [src]="imagePath + item.imageUrl" alt="Image">
+                    </div>
+                </ng-container>
+            </div>
+            <a class="carousel-control-prev" href="shop/detail/{{product.idProduct}}#product-carousel" data-bs-slide="prev">
+                <i class="fa fa-2x fa-angle-left text-dark"></i>
+            </a>
+            <a class="carousel-control-next" href="shop/detail/{{product.idProduct}}#product-carousel" data-bs-slide="next">
+                <i class="fa fa-2x fa-angle-right text-dark"></i>
+            </a>
+        </div>
+    </div>
+  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Thông tin sản phẩm</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="/">Trang chủ</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Thông tin sản phẩm</p>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-5 pb-5">
+            <div id="product-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-toggle="modal" data-bs-target="#galleryModal">
+                <div class="carousel-inner border">
+                    <div class="carousel-item active" *ngIf="product.image && product.image.length > 0">
+                        <img class="w-100" style="object-fit: cover; height: 700px;" [src]="imagePath + product.image" alt="Image" data-slide-to="0">
+                    </div>
+                    <ng-container *ngFor="let item of images; let i = index">
+                        <div class="carousel-item" *ngIf="product.image && product.image.length > 0">
+                            <img class="w-100" style="object-fit: cover; height: 700px;" [src]="imagePath + item.imageUrl" alt="Image" [attr.data-slide-to]="i+1" >
+                        </div>
+                    </ng-container>
+                    
+                </div>
+                <a class="carousel-control-prev" href="shop/detail/{{product.idProduct}}#product-carousel" data-bs-slide="prev">
+                    <i class="fa fa-2x fa-angle-left text-dark"></i>
+                </a>
+                <a class="carousel-control-next" href="shop/detail/{{product.idProduct}}#product-carousel" data-bs-slide="next">
+                    <i class="fa fa-2x fa-angle-right text-dark"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-7 pb-5">
+            <h3 class="font-weight-semi-bold">{{product.name}}</h3>
+            <div class="d-flex mb-3">
+                <small class="pt-1">({{commentCount}} Bình luận)</small>
+            </div>
+            <h3 class="font-weight-medium mb-0" style="color: gray;" *ngIf="product.salePercent && product.salePercent>0"><del>{{this.product.price | number }}đ</del></h3>
+            <h3 class="font-weight-semi-bold mb-4">{{ (this.product.salePercent ? (this.product.price/100*(100-this.product.salePercent)) : this.product.price) | number }}đ <span class="font-weight-medium" style="color: green;" *ngIf="product.salePercent && product.salePercent>0">  (GIẢM {{product.salePercent}}%)</span></h3>
+            
+            <p class="mb-4">Sản phấm màu {{product.color}} | {{product.rAM}} RAM và {{product.rOM}} bộ nhớ trong</p>
+            <p class="mb-4">Hiện có {{product.quantity}} sản phẩm</p>
+            <div class="d-flex align-items-center mb-4 pt-2">
+                <div class="input-group quantity mr-3" style="width: 130px;">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary btn-minus" (click)="decreaseBuyAmount()">
+                        <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <input type="text" class="form-control bg-secondary text-center" value="{{buyAmount}}" readonly>
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary btn-plus" (click)="increaseBuyAmount()">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn btn-primary px-3" (click)="addCart()"><i class="fa fa-shopping-cart mr-1"></i> Mua hàng</button>
+            </div>
+            <!-- <div class="d-flex pt-2">
+                <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
+                <div class="d-inline-flex">
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a class="text-dark px-2" href="">
+                        <i class="fab fa-pinterest"></i>
+                    </a>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="nav nav-tabs justify-content-center border-secondary mb-4">
+                <a class="nav-item nav-link active" data-bs-toggle="tab" href="shop/detail/{{product.idProduct}}#tab-pane-1">Giới thiệu</a>
+                <a class="nav-item nav-link" data-bs-toggle="tab" href="shop/detail/{{product.idProduct}}#tab-pane-2">Thông số kỹ thuật</a>
+                <a class="nav-item nav-link" data-bs-toggle="tab" href="shop/detail/{{product.idProduct}}#tab-pane-3">Bình luận ({{commentCount}})</a>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="tab-pane-1">
+                    <h4 class="mb-3">Thông tin sản phẩm</h4>
+                    <p>{{product.informationDetails}}</p>
+                </div>
+                <div class="tab-pane fade" id="tab-pane-2">
+                    <h4 class="mb-3">Thông số kỹ thuật</h4>
+                    
+                    <div class="row">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Tên điện thoại</td>
+                                    <td>{{product.name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Hãng</td>
+                                    <td>{{producerName}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Loại SIM hỗ trợ</td>
+                                    <td>{{product.supportSim}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Màn hình</td>
+                                    <td>{{product.monitor}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Màu sắc</td>
+                                    <td>{{product.color}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Camera trước</td>
+                                    <td>{{product.frontCamera}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Camera sau</td>
+                                    <td>{{product.rearCamera}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Chip xử lí CPU</td>
+                                    <td>{{product.cPU}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Chip xử lí GPU</td>
+                                    <td>{{product.gPU}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Dung lượng RAM</td>
+                                    <td>{{product.rAM}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Dung lượng bộ nhớ trong</td>
+                                    <td>{{product.rOM}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Hẹ điều hành</td>
+                                    <td>{{product.oS}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Dung lượng PIN</td>
+                                    <td>{{product.pin}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab-pane-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="mb-4">{{commentCount}} bình luận về "{{product.name}}"</h4>
+                            <ng-container *ngFor="let item of comments; let i = index">
+                                <div class="media mb-4">
+                                    <img [src]="imagePath + listAvt[i]" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                    <div class="media-body">
+                                        <h6>{{item.login}}<small> - <i>{{item.createdAt}}</i></small></h6>
+                                        <p>{{item.content}}</p>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="col-md-6" >
+                            <h4 class="mb-4">Để lại bình luận</h4>
+                            <p style="color: red;" *ngIf="!account">Phải đăng nhập trước khi bình luận!</p>
+                            <small>Hãy nêu cảm nhận của bạn về sản phẩm</small>
+                            <form>
+                                <div class="form-group">
+                                    <label for="message">Your Review *</label>
+                                    <textarea #commentContent id="message" cols="30" rows="5" class="form-control" [disabled]="!account"></textarea>
+                                </div>
+                                <div class="form-group mb-0">
+                                    <!-- <input type="button" (click)="comment(commentContent.value)" value="Gửi bình luận" class="btn btn-primary px-3" [disabled]="!account"> -->
+                                    <button
+                                    type="button"
+                                    (click)="comment(commentContent.value)"
+                                    class="btn btn-primary px-3"
+                                    [disabled]="!account"
+                                    >
+                                    <span class="d-none d-md-inline" >Gửi bình luận</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

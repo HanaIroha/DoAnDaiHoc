@@ -1,0 +1,81 @@
+<div>
+    <h2>
+      <span id="user-management-page-heading">Nhà sản xuất</span>
+  
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span>Làm mới</span>
+        </button>
+        <button class="btn btn-primary jh-create-entity" [routerLink]="['new']">
+          <fa-icon icon="plus"></fa-icon> <span>Tạo mới nhà sản xuất</span>
+        </button>
+      </div>
+    </h2>
+  
+    <jhi-alert-error></jhi-alert-error>
+  
+    <jhi-alert></jhi-alert>
+  
+    <div class="table-responsive" *ngIf="producers">
+      <table class="table table-striped" aria-describedby="user-management-page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="transition()">
+            <th scope="col" jhiSortBy="idProducer"><span >ID</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="name"><span >Tên</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="createdAt"><span >Ngày tạo</span> <fa-icon icon="sort"></fa-icon></th>
+            <th scope="col" jhiSortBy="updatedAt"> <span >Ngày cập nhật</span> <fa-icon icon="sort"></fa-icon> </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="producers">
+          <tr *ngFor="let item of producers; trackBy: trackIdentity">
+            <td>{{ item.idProducer }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.createdAt | date: 'dd/MM/yy HH:mm' }}</td>
+            <td>{{ item.updatedAt | date: 'dd/MM/yy HH:mm' }}</td>
+            <td class="text-end">
+              <div class="btn-group">
+                <!-- <button type="submit" [routerLink]="['createCategories']" class="btn btn-info btn-sm">
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline" >View</span>
+                </button> -->
+  
+                <button type="submit" [routerLink]="['edit', item.idProducer]" class="btn btn-primary btn-sm">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" >Chỉnh sửa</span>
+                </button>
+  
+                <button
+                  type="button"
+                  (click)="deleteCategory(item.idProducer)"
+                  class="btn btn-danger btn-sm"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" >Xoá</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="producers">
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+  
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [(page)]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="transition()"
+        ></ngb-pagination>
+      </div>
+    </div>
+  </div>
