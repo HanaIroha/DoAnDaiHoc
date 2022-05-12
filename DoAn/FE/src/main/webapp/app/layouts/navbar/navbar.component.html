@@ -75,7 +75,7 @@
                           <a href="#" class="nav-link dropdown-toggle" routerLink="shop" data-bs-toggle="dropdown" (click)="hideBanner()">Cửa hàng</a>
                           <div class="dropdown-menu rounded-0 m-0">
                             <ng-container *ngFor="let item of categories;">
-                              <a href="javascript:void(0)" [routerLink]="['/shop']" [queryParams]="{f3: item.idCategory}" class="dropdown-item">{{item.name}}</a>
+                              <a href="javascript:void(0)" [routerLink]="['/shop']" [queryParams]="{f3: item.idCategory}" class="dropdown-item" (click)="hideBanner()">{{item.name}}</a>
                             </ng-container>
                           </div>
                       </div>
@@ -107,7 +107,7 @@
                       </div>
                 </div>
             </nav>
-            <div id="header-carousel" class="carousel slide" data-ride="carousel" *ngIf="isIndex">
+            <div id="header-carousel" class="carousel slide" data-bs-ride="carousel" *ngIf="isIndex">
                 <div class="carousel-inner">
                     <ng-container *ngFor="let item of banners;">
                       <div class="carousel-item active" style="height: 410px;">
@@ -116,19 +116,18 @@
                             <div class="p-3" style="max-width: 700px;">
                                 <h4 class="text-light text-uppercase font-weight-medium mb-3">{{item.upperTitle}}</h4>
                                 <h3 class="display-4 text-white font-weight-semi-bold mb-4">{{item.mainTitle}}</h3>
-                                <a href="javascript:void(0)" class="btn btn-light py-2 px-3" (click)="hideBanner()">Đến Ngay</a>
+                                <a href="{{item.linkNavigate}}" class="btn btn-light py-2 px-3" (click)="hideBanner()">Đến Ngay</a>
                             </div>
                         </div>
                     </div>
                     </ng-container>
-                    
                 </div>
-                <a class="carousel-control-prev" href="javascript:void(0)" data-slide="prev">
+                <a class="carousel-control-prev" href="#header-carousel" data-bs-slide="prev">
                     <div class="btn btn-dark" style="width: 45px; height: 45px;">
                         <span class="carousel-control-prev-icon mb-n2"></span>
                     </div>
                 </a>
-                <a class="carousel-control-next" href="javascript:void(0)" data-slide="next">
+                <a class="carousel-control-next" href="#header-carousel" data-bs-slide="next">
                     <div class="btn btn-dark" style="width: 45px; height: 45px;">
                         <span class="carousel-control-next-icon mb-n2"></span>
                     </div>

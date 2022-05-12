@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="myUserLabel" jhiTranslate="userManagement.home.createOrEditLabel">Create or edit a User</h2>
+      <h2 id="myUserLabel" >Sửa tài khoản</h2>
 
       <div *ngIf="user">
         <jhi-alert-error></jhi-alert-error>
@@ -13,7 +13,7 @@
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="userManagement.login">Login</label>
-          <input type="text" class="form-control" name="login" formControlName="login" />
+          <input type="text" class="form-control" name="login" formControlName="login" readonly/>
 
           <div *ngIf="editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -41,7 +41,7 @@
 
         <div class="mb-3">
           <label class="form-label">Họ và tên</label>
-          <input type="text" class="form-control" name="fullname" formControlName="fullname" />
+          <input type="text" class="form-control" name="fullname" formControlName="fullname" readonly/>
 
           <div *ngIf="editForm.get('fullname')!.invalid && (editForm.get('fullname')!.dirty || editForm.get('fullname')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -52,7 +52,7 @@
 
         <div class="mb-3">
           <label class="form-label">Số điện thoại</label>
-          <input type="text" class="form-control" name="phonenumber" formControlName="phonenumber" />
+          <input type="text" class="form-control" name="phonenumber" formControlName="phonenumber" readonly/>
 
           <div *ngIf="editForm.get('phonenumber')!.invalid && (editForm.get('phonenumber')!.dirty || editForm.get('phonenumber')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -63,7 +63,7 @@
 
         <div class="mb-3">
           <label class="form-label">Địa chỉ</label>
-          <input type="text" class="form-control" name="address" formControlName="address" />
+          <input type="text" class="form-control" name="address" formControlName="address" readonly/>
 
           <div *ngIf="editForm.get('address')!.invalid && (editForm.get('address')!.dirty || editForm.get('address')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -74,7 +74,7 @@
 
         <div class="mb-3">
           <label class="form-label" jhiTranslate="userManagement.email">Email</label>
-          <input type="email" class="form-control" name="email" formControlName="email" />
+          <input type="email" class="form-control" name="email" formControlName="email" readonly/>
 
           <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required" jhiTranslate="entity.validation.required">
