@@ -50,6 +50,9 @@ import { OrderdetailsComponent } from './admin/orders/orderdetails/orderdetails.
 import { UserComponent } from './admin/user/user.component';
 import { UserorderhistoryComponent } from './admin/user/userorderhistory/userorderhistory.component';
 import { DetailUseroderhistoryComponent } from './admin/user/userorderhistory/detail-useroderhistory/detail-useroderhistory.component';
+import { EditorModule } from '@progress/kendo-angular-editor';
+import { BannersComponent } from './admin/banners/banners.component';
+import { CreateBannerComponent } from './admin/banners/create-banner/create-banner.component';
 
 
 @NgModule({
@@ -69,6 +72,7 @@ import { DetailUseroderhistoryComponent } from './admin/user/userorderhistory/de
     CarouselModule,
     BrowserAnimationsModule,
     FontAwesomeModule,
+    EditorModule,
   ],
   providers: [
     Title,
@@ -104,6 +108,8 @@ import { DetailUseroderhistoryComponent } from './admin/user/userorderhistory/de
     UserComponent,
     UserorderhistoryComponent,
     DetailUseroderhistoryComponent,
+    BannersComponent,
+    CreateBannerComponent,
   ],
   bootstrap: [MainComponent],
 })

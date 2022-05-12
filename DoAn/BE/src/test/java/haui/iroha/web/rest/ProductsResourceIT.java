@@ -137,17 +137,6 @@ class ProductsResourceIT {
             .code(DEFAULT_CODE)
             .price(DEFAULT_PRICE)
             .salePercent(DEFAULT_SALE_PERCENT)
-            .supportSim(DEFAULT_SUPPORT_SIM)
-            .monitor(DEFAULT_MONITOR)
-            .color(DEFAULT_COLOR)
-            .frontCamera(DEFAULT_FRONT_CAMERA)
-            .rearCamera(DEFAULT_REAR_CAMERA)
-            .cPU(DEFAULT_C_PU)
-            .gPU(DEFAULT_G_PU)
-            .rAM(DEFAULT_R_AM)
-            .rOM(DEFAULT_R_OM)
-            .oS(DEFAULT_O_S)
-            .pin(DEFAULT_PIN)
             .informationDetails(DEFAULT_INFORMATION_DETAILS)
             .createdAt(DEFAULT_CREATED_AT)
             .updatedAt(DEFAULT_UPDATED_AT)
@@ -170,17 +159,6 @@ class ProductsResourceIT {
             .code(UPDATED_CODE)
             .price(UPDATED_PRICE)
             .salePercent(UPDATED_SALE_PERCENT)
-            .supportSim(UPDATED_SUPPORT_SIM)
-            .monitor(UPDATED_MONITOR)
-            .color(UPDATED_COLOR)
-            .frontCamera(UPDATED_FRONT_CAMERA)
-            .rearCamera(UPDATED_REAR_CAMERA)
-            .cPU(UPDATED_C_PU)
-            .gPU(UPDATED_G_PU)
-            .rAM(UPDATED_R_AM)
-            .rOM(UPDATED_R_OM)
-            .oS(UPDATED_O_S)
-            .pin(UPDATED_PIN)
             .informationDetails(UPDATED_INFORMATION_DETAILS)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT)
@@ -214,17 +192,6 @@ class ProductsResourceIT {
         assertThat(testProducts.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testProducts.getPrice()).isEqualTo(DEFAULT_PRICE);
         assertThat(testProducts.getSalePercent()).isEqualTo(DEFAULT_SALE_PERCENT);
-        assertThat(testProducts.getSupportSim()).isEqualTo(DEFAULT_SUPPORT_SIM);
-        assertThat(testProducts.getMonitor()).isEqualTo(DEFAULT_MONITOR);
-        assertThat(testProducts.getColor()).isEqualTo(DEFAULT_COLOR);
-        assertThat(testProducts.getFrontCamera()).isEqualTo(DEFAULT_FRONT_CAMERA);
-        assertThat(testProducts.getRearCamera()).isEqualTo(DEFAULT_REAR_CAMERA);
-        assertThat(testProducts.getcPU()).isEqualTo(DEFAULT_C_PU);
-        assertThat(testProducts.getgPU()).isEqualTo(DEFAULT_G_PU);
-        assertThat(testProducts.getrAM()).isEqualTo(DEFAULT_R_AM);
-        assertThat(testProducts.getrOM()).isEqualTo(DEFAULT_R_OM);
-        assertThat(testProducts.getoS()).isEqualTo(DEFAULT_O_S);
-        assertThat(testProducts.getPin()).isEqualTo(DEFAULT_PIN);
         assertThat(testProducts.getInformationDetails()).isEqualTo(DEFAULT_INFORMATION_DETAILS);
         assertThat(testProducts.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testProducts.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
@@ -349,17 +316,6 @@ class ProductsResourceIT {
             .code(UPDATED_CODE)
             .price(UPDATED_PRICE)
             .salePercent(UPDATED_SALE_PERCENT)
-            .supportSim(UPDATED_SUPPORT_SIM)
-            .monitor(UPDATED_MONITOR)
-            .color(UPDATED_COLOR)
-            .frontCamera(UPDATED_FRONT_CAMERA)
-            .rearCamera(UPDATED_REAR_CAMERA)
-            .cPU(UPDATED_C_PU)
-            .gPU(UPDATED_G_PU)
-            .rAM(UPDATED_R_AM)
-            .rOM(UPDATED_R_OM)
-            .oS(UPDATED_O_S)
-            .pin(UPDATED_PIN)
             .informationDetails(UPDATED_INFORMATION_DETAILS)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT)
@@ -385,17 +341,6 @@ class ProductsResourceIT {
         assertThat(testProducts.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testProducts.getPrice()).isEqualTo(UPDATED_PRICE);
         assertThat(testProducts.getSalePercent()).isEqualTo(UPDATED_SALE_PERCENT);
-        assertThat(testProducts.getSupportSim()).isEqualTo(UPDATED_SUPPORT_SIM);
-        assertThat(testProducts.getMonitor()).isEqualTo(UPDATED_MONITOR);
-        assertThat(testProducts.getColor()).isEqualTo(UPDATED_COLOR);
-        assertThat(testProducts.getFrontCamera()).isEqualTo(UPDATED_FRONT_CAMERA);
-        assertThat(testProducts.getRearCamera()).isEqualTo(UPDATED_REAR_CAMERA);
-        assertThat(testProducts.getcPU()).isEqualTo(UPDATED_C_PU);
-        assertThat(testProducts.getgPU()).isEqualTo(UPDATED_G_PU);
-        assertThat(testProducts.getrAM()).isEqualTo(UPDATED_R_AM);
-        assertThat(testProducts.getrOM()).isEqualTo(UPDATED_R_OM);
-        assertThat(testProducts.getoS()).isEqualTo(UPDATED_O_S);
-        assertThat(testProducts.getPin()).isEqualTo(UPDATED_PIN);
         assertThat(testProducts.getInformationDetails()).isEqualTo(UPDATED_INFORMATION_DETAILS);
         assertThat(testProducts.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testProducts.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
@@ -482,13 +427,6 @@ class ProductsResourceIT {
         partialUpdatedProducts
             .idCategory(UPDATED_ID_CATEGORY)
             .name(UPDATED_NAME)
-            .supportSim(UPDATED_SUPPORT_SIM)
-            .monitor(UPDATED_MONITOR)
-            .color(UPDATED_COLOR)
-            .rearCamera(UPDATED_REAR_CAMERA)
-            .cPU(UPDATED_C_PU)
-            .gPU(UPDATED_G_PU)
-            .oS(UPDATED_O_S)
             .informationDetails(UPDATED_INFORMATION_DETAILS)
             .createdAt(UPDATED_CREATED_AT)
             .isDisable(UPDATED_IS_DISABLE);
@@ -512,17 +450,6 @@ class ProductsResourceIT {
         assertThat(testProducts.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testProducts.getPrice()).isEqualTo(DEFAULT_PRICE);
         assertThat(testProducts.getSalePercent()).isEqualTo(DEFAULT_SALE_PERCENT);
-        assertThat(testProducts.getSupportSim()).isEqualTo(UPDATED_SUPPORT_SIM);
-        assertThat(testProducts.getMonitor()).isEqualTo(UPDATED_MONITOR);
-        assertThat(testProducts.getColor()).isEqualTo(UPDATED_COLOR);
-        assertThat(testProducts.getFrontCamera()).isEqualTo(DEFAULT_FRONT_CAMERA);
-        assertThat(testProducts.getRearCamera()).isEqualTo(UPDATED_REAR_CAMERA);
-        assertThat(testProducts.getcPU()).isEqualTo(UPDATED_C_PU);
-        assertThat(testProducts.getgPU()).isEqualTo(UPDATED_G_PU);
-        assertThat(testProducts.getrAM()).isEqualTo(DEFAULT_R_AM);
-        assertThat(testProducts.getrOM()).isEqualTo(DEFAULT_R_OM);
-        assertThat(testProducts.getoS()).isEqualTo(UPDATED_O_S);
-        assertThat(testProducts.getPin()).isEqualTo(DEFAULT_PIN);
         assertThat(testProducts.getInformationDetails()).isEqualTo(UPDATED_INFORMATION_DETAILS);
         assertThat(testProducts.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testProducts.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
@@ -549,17 +476,6 @@ class ProductsResourceIT {
             .code(UPDATED_CODE)
             .price(UPDATED_PRICE)
             .salePercent(UPDATED_SALE_PERCENT)
-            .supportSim(UPDATED_SUPPORT_SIM)
-            .monitor(UPDATED_MONITOR)
-            .color(UPDATED_COLOR)
-            .frontCamera(UPDATED_FRONT_CAMERA)
-            .rearCamera(UPDATED_REAR_CAMERA)
-            .cPU(UPDATED_C_PU)
-            .gPU(UPDATED_G_PU)
-            .rAM(UPDATED_R_AM)
-            .rOM(UPDATED_R_OM)
-            .oS(UPDATED_O_S)
-            .pin(UPDATED_PIN)
             .informationDetails(UPDATED_INFORMATION_DETAILS)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT)
@@ -584,17 +500,6 @@ class ProductsResourceIT {
         assertThat(testProducts.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testProducts.getPrice()).isEqualTo(UPDATED_PRICE);
         assertThat(testProducts.getSalePercent()).isEqualTo(UPDATED_SALE_PERCENT);
-        assertThat(testProducts.getSupportSim()).isEqualTo(UPDATED_SUPPORT_SIM);
-        assertThat(testProducts.getMonitor()).isEqualTo(UPDATED_MONITOR);
-        assertThat(testProducts.getColor()).isEqualTo(UPDATED_COLOR);
-        assertThat(testProducts.getFrontCamera()).isEqualTo(UPDATED_FRONT_CAMERA);
-        assertThat(testProducts.getRearCamera()).isEqualTo(UPDATED_REAR_CAMERA);
-        assertThat(testProducts.getcPU()).isEqualTo(UPDATED_C_PU);
-        assertThat(testProducts.getgPU()).isEqualTo(UPDATED_G_PU);
-        assertThat(testProducts.getrAM()).isEqualTo(UPDATED_R_AM);
-        assertThat(testProducts.getrOM()).isEqualTo(UPDATED_R_OM);
-        assertThat(testProducts.getoS()).isEqualTo(UPDATED_O_S);
-        assertThat(testProducts.getPin()).isEqualTo(UPDATED_PIN);
         assertThat(testProducts.getInformationDetails()).isEqualTo(UPDATED_INFORMATION_DETAILS);
         assertThat(testProducts.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testProducts.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);

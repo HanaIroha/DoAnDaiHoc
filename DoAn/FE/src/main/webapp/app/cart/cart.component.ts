@@ -71,6 +71,7 @@ export class CartComponent implements OnInit {
    document.getElementById("numberItemCart").innerHTML = (this.sl-1).toString();
    localStorage.setItem('cart',JSON.stringify(this.data));
       this.load();
+      alert('Đã xóa sản phẩm khỏi giỏ hàng!');
   }
 
 }

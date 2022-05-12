@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Image } from 'app/admin/products/image/image.model';
 import { Product } from 'app/admin/products/product.model';
+import { ProductSpec } from 'app/admin/products/productSpec.model';
 import { Account } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { Login } from 'app/login/login.model';
@@ -22,6 +23,7 @@ import { Comment } from './comment.model';
 export class ShopDetailComponent implements OnInit {
   
   product = new Product();
+  numberSpec = [];
   images: Image[] | null = null;
   comments: Comment[] | null = null;
   imagePath = "\\content\\imageStorage\\";
@@ -71,6 +73,18 @@ export class ShopDetailComponent implements OnInit {
 
       this.accountService.getAuthenticationState().subscribe(account => {
         this.account = account;
+      });
+
+      this.productService
+      .querySpecs({
+        page: 0,
+        size: 9999,
+        sort: ['id_product_spec','asc'],
+      },this.id)
+      .subscribe({
+        next: (res: HttpResponse<ProductSpec[]>) => {
+          this.numberSpec = res.body;
+        },
       });
 
       this.loadComment();

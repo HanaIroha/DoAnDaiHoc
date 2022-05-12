@@ -3,8 +3,11 @@ package haui.iroha.service.impl;
 import haui.iroha.domain.ProductSpecs;
 import haui.iroha.repository.ProductSpecsRepository;
 import haui.iroha.service.ProductSpecsService;
+import haui.iroha.service.dto.OrderDetailsDTO;
 import haui.iroha.service.dto.ProductSpecsDTO;
 import haui.iroha.service.mapper.ProductSpecsMapper;
+
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,5 +75,11 @@ public class ProductSpecsServiceImpl implements ProductSpecsService {
     public void delete(Long id) {
         log.debug("Request to delete ProductSpecs : {}", id);
         productSpecsRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<ProductSpecsDTO> findAllByIdProduct(long id, Pageable pageable) {
+        log.debug("Request to get all PRODUCT SPECS BY Product ID: {}", id);
+        return productSpecsRepository.findAllByProductId(id, pageable).map(productSpecsMapper::toDto);
     }
 }

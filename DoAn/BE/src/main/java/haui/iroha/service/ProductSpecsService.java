@@ -1,6 +1,9 @@
 package haui.iroha.service;
 
+import haui.iroha.service.dto.OrderDetailsDTO;
 import haui.iroha.service.dto.ProductSpecsDTO;
+
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,4 +50,6 @@ public interface ProductSpecsService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Page<ProductSpecsDTO> findAllByIdProduct(long id, Pageable pageable);
 }

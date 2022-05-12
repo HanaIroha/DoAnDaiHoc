@@ -1,0 +1,12 @@
+entity Banners{
+	@Id IdBanner Long,
+    UpperTitle String,
+    MainTitle String,
+	Image String,
+	LinkNavigate String,
+}
+
+dto * with mapstruct
+paginate * with pagination
+service * with serviceClass
+service * with serviceImpl

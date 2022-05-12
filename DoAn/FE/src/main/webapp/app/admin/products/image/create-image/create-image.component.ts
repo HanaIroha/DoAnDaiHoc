@@ -54,7 +54,6 @@ export class CreateImageComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    this.updateImage(this.image);
     if (this.image.idImage !== undefined) {
       this.imageService.update(this.image).subscribe({
         next: () => this.onSaveSuccess(),
@@ -78,10 +77,6 @@ export class CreateImageComponent implements OnInit {
       idImage: image.idImage,
       imageUrl: image.imageUrl,
     });
-  }
-
-  private updateImage(image: Image): void {
-    image.imageUrl = this.editForm.get(['name'])!.value;
   }
 
   private onSaveSuccess(): void {

@@ -21,38 +21,21 @@
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <div></div>
                         <div class="d-flex col-lg-9">
+                            <select #filterCategory class="form-control" id="filterCategory" [(ngModel)]="categoryValue">
+                                <option value="0" selected>Mọi mặt hàng</option> 
+                                <option *ngFor="let item of categories" [value]="item.idCategory">{{item.name}}</option> 
+                              </select>
                             <select #filterProducer class="form-control" id="filterProducer">
                                 <option value="0" selected>Mọi hãng</option> 
                                 <option *ngFor="let item of producers" [value]="item.idProducer">{{item.name}}</option> 
                               </select>
                               <select #filterPrice class="form-control" id="filterPrice">
-                                <option value="0" selected>Mọi giá</option> 
-                                <option value="1" >Dưới 4 triệu</option> 
-                                <option value="2" >Từ 4 đến 8 triệu</option> 
-                                <option value="3" >Trên 8 triệu</option> 
-                                </select>
-                                <select #filterRam class="form-control" name="zxc" id="filterRam">
-                                  <option value="0" selected>Mọi dung lượng RAM</option> 
-                                  <option value="2GB" >2GB RAM</option> 
-                                  <option value="3GB" >3GB RAM</option> 
-                                  <option value="4GB" >4GB RAM</option> 
-                                  <option value="6GB" >6GB RAM</option> 
-                                  <option value="8GB" >8GB RAM</option> 
-                                  <option value="12GB" >12GB RAM</option> 
-                                  <option value="16GB" >16GB RAM</option> 
-                                </select>
-                                <select #filterRom class="form-control" id="filterRom">
-                                  <option value="0" selected>Mọi dung lượng ROM</option>
-                                  <option value="8GB" >8GB ROM</option> 
-                                  <option value="16GB" >16GB ROM</option> 
-                                  <option value="32GB" >32GB ROM</option> 
-                                  <option value="64GB" >64GB ROM</option> 
-                                  <option value="128GB" >128GB ROM</option> 
-                                  <option value="256GB" >256GB ROM</option> 
-                                  <option value="512GB" >512GB ROM</option>  
-                                </select>
+                                <option value="0" selected>Mọi giá</option>
+                                <option value="1" >Giá tăng dần</option>
+                                <option value="2" >Giá giảm dần</option>
+                              </select>
                                 <input #filterKey type="text" class="form-control" placeholder="Tên sản phẩm...">
-                                <a href="javascript:void(0)" class="input-group-append" (click)="loadAll(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterPrice.value,filterRam.value,filterRom.value)">
+                                <a href="javascript:void(0)" class="input-group-append" (click)="loadAll(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterCategory.value,filterPrice.value)">
                                     <span class="input-group-text bg-transparent text-primary">
                                         <i class="fa fa-search"></i>
                                     </span>
@@ -81,9 +64,9 @@
                                 <img class="img-fluid w-100" style="object-fit: cover; height:315px ;" [src]="item.image ? imagePath + item.image : defaultImage" alt="">
                             </div>
                             <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                                <h6 class="text-truncate mb-3">{{item.name}} | {{item.rAM}} RAM | {{item.rOM}} Bộ nhớ trong</h6>
+                                <h6 class="text-truncate mb-3">{{item.name}} | {{ (this.item.salePercent ? (this.item.price/100*(100-this.item.salePercent)) : this.item.price) | number }}đ  <del style="color:grey" *ngIf="item.salePercent && item.salePercent>0">{{this.item.price | number }}đ</del></h6>
                                 <div class="d-flex justify-content-center">
-                                    <h6>{{ (this.item.salePercent ? (this.item.price/100*(100-this.item.salePercent)) : this.item.price) | number }}đ</h6><h6 class="text-muted ml-2" *ngIf="item.salePercent && item.salePercent>0"><del>{{this.item.price | number }}đ</del></h6>
+                                    <h6>{{item.information}}</h6>
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between bg-light border">
@@ -109,7 +92,7 @@
                                 [maxSize]="5"
                                 [rotate]="true"
                                 [boundaryLinks]="true"
-                                (pageChange)="transition(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterPrice.value,filterRam.value,filterRom.value)"
+                                (pageChange)="transition(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterCategory.value, filterPrice.value)"
                               ></ngb-pagination>
                             </div>
                           </div>

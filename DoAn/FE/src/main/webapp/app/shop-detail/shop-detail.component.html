@@ -30,7 +30,7 @@
     </div>
   
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -80,8 +80,8 @@
             <h3 class="font-weight-medium mb-0" style="color: gray;" *ngIf="product.salePercent && product.salePercent>0"><del>{{this.product.price | number }}đ</del></h3>
             <h3 class="font-weight-semi-bold mb-4">{{ (this.product.salePercent ? (this.product.price/100*(100-this.product.salePercent)) : this.product.price) | number }}đ <span class="font-weight-medium" style="color: green;" *ngIf="product.salePercent && product.salePercent>0">  (GIẢM {{product.salePercent}}%)</span></h3>
             
-            <p class="mb-4">Sản phấm màu {{product.color}} | {{product.rAM}} RAM và {{product.rOM}} bộ nhớ trong</p>
-            <p class="mb-4">Hiện có {{product.quantity}} sản phẩm</p>
+            <p class="mb-4">{{product.information}}</p>
+            <p class="mb-4">Hiện còn {{product.quantity}} sản phẩm</p>
             <div class="d-flex align-items-center mb-4 pt-2">
                 <div class="input-group quantity mr-3" style="width: 130px;">
                     <div class="input-group-btn">
@@ -127,7 +127,7 @@
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="tab-pane-1">
                     <h4 class="mb-3">Thông tin sản phẩm</h4>
-                    <p>{{product.informationDetails}}</p>
+                    <div innerHTML="{{product.informationDetails}}"></div>
                 </div>
                 <div class="tab-pane fade" id="tab-pane-2">
                     <h4 class="mb-3">Thông số kỹ thuật</h4>
@@ -143,49 +143,9 @@
                                     <td>Hãng</td>
                                     <td>{{producerName}}</td>
                                 </tr>
-                                <tr>
-                                    <td>Loại SIM hỗ trợ</td>
-                                    <td>{{product.supportSim}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Màn hình</td>
-                                    <td>{{product.monitor}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Màu sắc</td>
-                                    <td>{{product.color}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Camera trước</td>
-                                    <td>{{product.frontCamera}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Camera sau</td>
-                                    <td>{{product.rearCamera}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Chip xử lí CPU</td>
-                                    <td>{{product.cPU}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Chip xử lí GPU</td>
-                                    <td>{{product.gPU}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Dung lượng RAM</td>
-                                    <td>{{product.rAM}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Dung lượng bộ nhớ trong</td>
-                                    <td>{{product.rOM}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Hẹ điều hành</td>
-                                    <td>{{product.oS}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Dung lượng PIN</td>
-                                    <td>{{product.pin}}</td>
+                                <tr *ngFor="let item of numberSpec">
+                                    <td>{{item.key}}</td>
+                                    <td>{{item.value}}</td>
                                 </tr>
                             </tbody>
                         </table>

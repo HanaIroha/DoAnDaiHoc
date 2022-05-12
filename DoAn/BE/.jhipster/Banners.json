@@ -1,0 +1,39 @@
+{
+  "applications": "*",
+  "changelogDate": "20220511231816",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "banners",
+  "fields": [
+    {
+      "fieldName": "idBanner",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "upperTitle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mainTitle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "linkNavigate",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Banners",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

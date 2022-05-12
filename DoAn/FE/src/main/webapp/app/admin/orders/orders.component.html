@@ -26,6 +26,7 @@
       <table class="table table-striped" aria-describedby="user-management-page-heading">
         <thead>
           <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="transition()">
+            <th scope="col"><span >Mã đơn hàng</span></th>
             <th scope="col"><span >Ngày mua</span></th>
             <th scope="col"><span >Giá trị đơn hàng</span></th>
             <th scope="col"><span >Trạng thái</span></th>
@@ -34,6 +35,7 @@
         </thead>
         <tbody *ngIf="orders">
           <tr *ngFor="let item of orders; trackBy: trackIdentity; let i =index">
+            <th scope="col"><span >{{item.orderCode}}</span></th>
             <td>{{ item.idOrder | date: 'dd/MM/yy HH:mm' }}</td>
             <td>{{ ordervalue[i] | number }}đ</td>
             <td>{{ item.orderStatus==0?"Chờ duyệt": item.orderStatus==1? "Đã duyệt" : "Đã huỷ"}}</td>

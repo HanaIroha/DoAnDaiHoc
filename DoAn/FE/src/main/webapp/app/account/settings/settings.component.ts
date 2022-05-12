@@ -47,7 +47,7 @@ export class SettingsComponent implements OnInit {
 
   save(): void {
     this.success = false;
-
+    this.account.fullname = this.settingsForm.get('fullname')!.value;
     this.account.address = this.settingsForm.get('address')!.value;
     this.account.phonenumber = this.settingsForm.get('phone')!.value;
     this.account.email = this.settingsForm.get('email')!.value;

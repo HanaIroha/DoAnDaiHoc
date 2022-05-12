@@ -9,6 +9,8 @@ import { Product } from './product.model';
 import { CommonModule, CurrencyPipe} from '@angular/common';
 import { Producer } from '../producers/producer.model';
 import { ProducerService } from 'app/service/producer.service';
+import { CategoryService } from 'app/service/category.service';
+import { Category } from '../categories/category.model';
 
 @Component({
   selector: 'jhi-products',
@@ -18,6 +20,7 @@ import { ProducerService } from 'app/service/producer.service';
 export class ProductsComponent implements OnInit {
 
   producers: Producer[];
+  categories: Category[];
 
   imagePath = "\\content\\imageStorage\\";
   defaultImage = "\\content\\imageStorage\\default.jpg";
@@ -38,11 +41,16 @@ export class ProductsComponent implements OnInit {
     private router: Router,
     public currencyPipe : CurrencyPipe,
     private producerService: ProducerService,
+    private categoryService: CategoryService,
     ) {}
 
   ngOnInit(): void {
     this.producerService.getAll().subscribe(res=>{
       this.producers = res;
+    })
+
+    this.categoryService.getAll().subscribe(res=>{
+      this.categories = res;
     })
     
     this.handleNavigation();
@@ -52,8 +60,10 @@ export class ProductsComponent implements OnInit {
     return item.idProduct!;
   }
 
-  deleteCategory(filterKey,filterProducer,filterPrice,filterRam,filterRom,idProduct): void {
-    this.productService.delete(idProduct).subscribe(res => {});
+  deleteProduct(filterKey,filterProducer,filterCategory,idProduct): void {
+    this.productService.delete(idProduct).subscribe(res => {
+      this.loadAll(filterKey,filterProducer,filterCategory);
+    });
     this.router.navigate(['./product'], {
       relativeTo: this.activatedRoute.parent,
       queryParams: {
@@ -61,21 +71,19 @@ export class ProductsComponent implements OnInit {
         sort: `${this.predicate},${this.ascending ? ASC : DESC}`,
         f1: filterKey,
         f2: filterProducer,
-        f3: filterPrice,
-        f4: filterRam,
-        f5: filterRom,
+        f3: filterCategory,
       },
     });
   }
 
-  loadAll(filterKey?, filterProducer?, filterPrice?, filterRam?, filterRom?): void {
+  loadAll(filterKey?, filterProducer?, filterCategory?): void {
     this.isLoading = true;
     this.productService
       .queryActive({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
-      },filterKey, filterProducer,filterPrice,filterRam,filterRom)
+      },filterKey, filterProducer,filterCategory)
       .subscribe({
         next: (res: HttpResponse<Product[]>) => {
           this.isLoading = false;
@@ -85,7 +93,7 @@ export class ProductsComponent implements OnInit {
       });
   }
 
-  transition(filterKey,filterProducer,filterPrice,filterRam,filterRom): void {
+  transition(filterKey,filterProducer,filterCategory): void {
     this.router.navigate(['./product'], {
       relativeTo: this.activatedRoute.parent,
       queryParams: {
@@ -93,9 +101,7 @@ export class ProductsComponent implements OnInit {
         sort: `${this.predicate},${this.ascending ? ASC : DESC}`,
         f1: filterKey,
         f2: filterProducer,
-        f3: filterPrice,
-        f4: filterRam,
-        f5: filterRom,
+        f3: filterCategory,
       },
     });
   }
@@ -107,7 +113,7 @@ export class ProductsComponent implements OnInit {
       const sort = (params.get(SORT) ?? this.defaultSort).split(',');
       this.predicate = sort[0];
       this.ascending = sort[1] === ASC;
-      this.loadAll(params.has('f1')?params.get('f1'):0,params.has('f2')?params.get('f2'):0,params.has('f3')?params.get('f3'):0,params.has('f4')?params.get('f4'):0,params.has('f5')?params.get('5'):0);
+      this.loadAll(params.has('f1')?params.get('f1'):0,params.has('f2')?params.get('f2'):0,params.has('f3')?params.get('f3'):0);
     });
   }
 

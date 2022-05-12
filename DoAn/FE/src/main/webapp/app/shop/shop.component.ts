@@ -9,6 +9,8 @@ import { CommonModule, CurrencyPipe} from '@angular/common';
 import { ProducerService } from 'app/service/producer.service';
 import { Producer } from 'app/admin/producers/producer.model';
 import { Product } from 'app/admin/products/product.model';
+import { Category } from 'app/admin/categories/category.model';
+import { CategoryService } from 'app/service/category.service';
 
 @Component({
   selector: 'jhi-shop',
@@ -18,6 +20,9 @@ import { Product } from 'app/admin/products/product.model';
 export class ShopComponent implements OnInit {
 
   producers: Producer[];
+  categories: Category[];
+
+  categoryValue: string;
 
   imagePath = "\\content\\imageStorage\\";
   defaultImage = "\\content\\imageStorage\\default.jpg";
@@ -38,6 +43,7 @@ export class ShopComponent implements OnInit {
     private router: Router,
     public currencyPipe : CurrencyPipe,
     private producerService: ProducerService,
+    private categoryService: CategoryService,
     ) {}
 
   ngOnInit(): void {
@@ -45,6 +51,10 @@ export class ShopComponent implements OnInit {
       this.producers = res;
     })
     
+    this.categoryService.getAll().subscribe(res=>{
+      this.categories = res;
+    })
+
     this.handleNavigation();
   }
 
@@ -52,30 +62,14 @@ export class ShopComponent implements OnInit {
     return item.idProduct!;
   }
 
-  deleteCategory(filterKey,filterProducer,filterPrice,filterRam,filterRom,idProduct): void {
-    this.productService.delete(idProduct).subscribe(res => {});
-    this.router.navigate(['./product'], {
-      relativeTo: this.activatedRoute.parent,
-      queryParams: {
-        page: this.page,
-        sort: `${this.predicate},${this.ascending ? ASC : DESC}`,
-        f1: filterKey,
-        f2: filterProducer,
-        f3: filterPrice,
-        f4: filterRam,
-        f5: filterRom,
-      },
-    });
-  }
-
-  loadAll(filterKey?, filterProducer?, filterPrice?, filterRam?, filterRom?): void {
+  loadAll(filterKey?, filterProducer?, filterCategory?, filterPrice?): void {
     this.isLoading = true;
     this.productService
       .queryActive({
         page: this.page - 1,
         size: this.itemsPerPage,
-        sort: this.sort(),
-      },filterKey, filterProducer,filterPrice,filterRam,filterRom)
+        sort: this.sort(filterPrice),
+      },filterKey, filterProducer,filterCategory)
       .subscribe({
         next: (res: HttpResponse<Product[]>) => {
           this.isLoading = false;
@@ -85,17 +79,15 @@ export class ShopComponent implements OnInit {
       });
   }
 
-  transition(filterKey,filterProducer,filterPrice,filterRam,filterRom): void {
+  transition(filterKey,filterProducer,filterCategory,filterPrice): void {
     this.router.navigate(['./product'], {
       relativeTo: this.activatedRoute.parent,
       queryParams: {
         page: this.page,
-        sort: `${this.predicate},${this.ascending ? ASC : DESC}`,
+        sort: this.sort(filterPrice),
         f1: filterKey,
         f2: filterProducer,
-        f3: filterPrice,
-        f4: filterRam,
-        f5: filterRom,
+        f3: filterCategory,
       },
     });
   }
@@ -107,13 +99,25 @@ export class ShopComponent implements OnInit {
       const sort = (params.get(SORT) ?? this.defaultSort).split(',');
       this.predicate = sort[0];
       this.ascending = sort[1] === ASC;
-      this.loadAll(params.has('f1')?params.get('f1'):0,params.has('f2')?params.get('f2'):0,params.has('f3')?params.get('f3'):0,params.has('f4')?params.get('f4'):0,params.has('f5')?params.get('5'):0);
+      if(params.has('f3')){
+          this.categoryValue = params.get('f3');
+      }
+      else{
+        this.categoryValue = '0';
+      }
+      this.loadAll(params.has('f1')?params.get('f1'):0,params.has('f2')?params.get('f2'):0,params.has('f3')?params.get('f3'):0);
     });
   }
 
-  private sort(): string[] {
-    const result = [`${this.predicate},${this.ascending ? ASC : DESC}`];
-    if (this.predicate !== 'id_product') {
+  private sort(filterPrice?): string[] {
+    const result = [];
+    if (filterPrice == '1'){
+      result.push('last_price,ASC');
+    }
+    else if (filterPrice == '2'){
+      result.push('last_price,DESC');
+    }
+    else{
       result.push('id_product');
     }
     return result;

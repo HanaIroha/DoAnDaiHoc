@@ -39,41 +39,14 @@ public class Products implements Serializable {
     @Column(name = "sale_percent")
     private Long salePercent;
 
+    @Column(name = "last_price")
+    private Long lastPrice;
+
     @Column(name = "quantity")
     private Long quantity;
 
-    @Column(name = "support_sim")
-    private String supportSim;
-
-    @Column(name = "monitor")
-    private String monitor;
-
-    @Column(name = "color")
-    private String color;
-
-    @Column(name = "front_camera")
-    private String frontCamera;
-
-    @Column(name = "rear_camera")
-    private String rearCamera;
-
-    @Column(name = "c_pu")
-    private String cPU;
-
-    @Column(name = "g_pu")
-    private String gPU;
-
-    @Column(name = "r_am")
-    private String rAM;
-
-    @Column(name = "r_om")
-    private String rOM;
-
-    @Column(name = "o_s")
-    private String oS;
-
-    @Column(name = "pin")
-    private String pin;
+    @Column(name = "information")
+    private String information;
 
     @Column(name = "information_details")
     private String informationDetails;
@@ -202,151 +175,24 @@ public class Products implements Serializable {
         return this;
     }
 
+    public Long getLastPrice() {
+        return lastPrice;
+    }
+
+    public void setLastPrice(Long lastPrice) {
+        this.lastPrice = lastPrice;
+    }
+
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 
-    public String getSupportSim() {
-        return this.supportSim;
+    public String getInformation() {
+        return information;
     }
 
-    public Products supportSim(String supportSim) {
-        this.setSupportSim(supportSim);
-        return this;
-    }
-
-    public void setSupportSim(String supportSim) {
-        this.supportSim = supportSim;
-    }
-
-    public String getMonitor() {
-        return this.monitor;
-    }
-
-    public Products monitor(String monitor) {
-        this.setMonitor(monitor);
-        return this;
-    }
-
-    public void setMonitor(String monitor) {
-        this.monitor = monitor;
-    }
-
-    public String getColor() {
-        return this.color;
-    }
-
-    public Products color(String color) {
-        this.setColor(color);
-        return this;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getFrontCamera() {
-        return this.frontCamera;
-    }
-
-    public Products frontCamera(String frontCamera) {
-        this.setFrontCamera(frontCamera);
-        return this;
-    }
-
-    public void setFrontCamera(String frontCamera) {
-        this.frontCamera = frontCamera;
-    }
-
-    public String getRearCamera() {
-        return this.rearCamera;
-    }
-
-    public Products rearCamera(String rearCamera) {
-        this.setRearCamera(rearCamera);
-        return this;
-    }
-
-    public void setRearCamera(String rearCamera) {
-        this.rearCamera = rearCamera;
-    }
-
-    public String getcPU() {
-        return this.cPU;
-    }
-
-    public Products cPU(String cPU) {
-        this.setcPU(cPU);
-        return this;
-    }
-
-    public void setcPU(String cPU) {
-        this.cPU = cPU;
-    }
-
-    public String getgPU() {
-        return this.gPU;
-    }
-
-    public Products gPU(String gPU) {
-        this.setgPU(gPU);
-        return this;
-    }
-
-    public void setgPU(String gPU) {
-        this.gPU = gPU;
-    }
-
-    public String getrAM() {
-        return this.rAM;
-    }
-
-    public Products rAM(String rAM) {
-        this.setrAM(rAM);
-        return this;
-    }
-
-    public void setrAM(String rAM) {
-        this.rAM = rAM;
-    }
-
-    public String getrOM() {
-        return this.rOM;
-    }
-
-    public Products rOM(String rOM) {
-        this.setrOM(rOM);
-        return this;
-    }
-
-    public void setrOM(String rOM) {
-        this.rOM = rOM;
-    }
-
-    public String getoS() {
-        return this.oS;
-    }
-
-    public Products oS(String oS) {
-        this.setoS(oS);
-        return this;
-    }
-
-    public void setoS(String oS) {
-        this.oS = oS;
-    }
-
-    public String getPin() {
-        return this.pin;
-    }
-
-    public Products pin(String pin) {
-        this.setPin(pin);
-        return this;
-    }
-
-    public void setPin(String pin) {
-        this.pin = pin;
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public String getInformationDetails() {
@@ -432,18 +278,9 @@ public class Products implements Serializable {
             ", code='" + getCode() + "'" +
             ", price=" + getPrice() +
             ", salePercent=" + getSalePercent() +
+            ", lastPrice=" + getLastPrice() +
             ", quantity=" + getQuantity() +
-            ", supportSim='" + getSupportSim() + "'" +
-            ", monitor='" + getMonitor() + "'" +
-            ", color='" + getColor() + "'" +
-            ", frontCamera='" + getFrontCamera() + "'" +
-            ", rearCamera='" + getRearCamera() + "'" +
-            ", cPU='" + getcPU() + "'" +
-            ", gPU='" + getgPU() + "'" +
-            ", rAM='" + getrAM() + "'" +
-            ", rOM='" + getrOM() + "'" +
-            ", oS='" + getoS() + "'" +
-            ", pin='" + getPin() + "'" +
+            ", information='" + getInformation() + "'" +
             ", informationDetails='" + getInformationDetails() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +

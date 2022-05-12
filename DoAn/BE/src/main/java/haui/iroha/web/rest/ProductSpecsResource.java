@@ -150,6 +150,15 @@ public class ProductSpecsResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    @GetMapping("/product-specsByProductId/{id}")
+    public ResponseEntity<List<ProductSpecsDTO>> getAllProductSpecsByProductId( @PathVariable Long id,
+                                                                                @org.springdoc.api.annotations.ParameterObject Pageable pageable) {
+        log.debug("REST request to get a page of ProductSpecs By product id: " + id);
+        Page<ProductSpecsDTO> page = productSpecsService.findAllByIdProduct(id, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
     /**
      * {@code GET  /product-specs/:id} : get the "id" productSpecs.
      *

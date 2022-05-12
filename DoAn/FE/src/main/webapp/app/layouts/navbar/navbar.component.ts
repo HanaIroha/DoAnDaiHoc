@@ -10,6 +10,10 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
+import { Category } from 'app/admin/categories/category.model';
+import { CategoryService } from 'app/service/category.service';
+import { Banner } from 'app/admin/banners/banner.model';
+import { BannerService } from 'app/service/banner.service';
 
 @Component({
   selector: 'jhi-navbar',
@@ -17,6 +21,10 @@ import { EntityNavbarItems } from 'app/entities/entity-navbar-items';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+
+  imagePath = "\\content\\imageStorage\\";
+  defaultImage = "\\content\\imageStorage\\default.jpg";
+
   inProduction?: boolean;
   isNavbarCollapsed = true;
   languages = LANGUAGES;
@@ -26,7 +34,13 @@ export class NavbarComponent implements OnInit {
   entitiesNavbarItems: any[] = [];
   data = [];
 
+  isIndex?: boolean;
+
   cartNumber:number;
+
+  categories: Category[];
+
+  banners: Banner[];
 
   constructor(
     private loginService: LoginService,
@@ -34,7 +48,9 @@ export class NavbarComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private categoryService: CategoryService,
+    private bannerService: BannerService,
   ) {
     if (VERSION) {
       this.version = VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`;
@@ -42,26 +58,46 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.entitiesNavbarItems = EntityNavbarItems;
-    this.profileService.getProfileInfo().subscribe(profileInfo => {
-      this.inProduction = profileInfo.inProduction;
-      this.openAPIEnabled = profileInfo.openAPIEnabled;
-      this.changeLanguage("vi");
-    });
+      this.entitiesNavbarItems = EntityNavbarItems;
+      this.profileService.getProfileInfo().subscribe(profileInfo => {
+        this.inProduction = profileInfo.inProduction;
+        this.openAPIEnabled = profileInfo.openAPIEnabled;
+        this.changeLanguage("vi");
+      });
 
-    this.accountService.getAuthenticationState().subscribe(account => {
-      this.account = account;
-    });
+      this.accountService.getAuthenticationState().subscribe(account => {
+        this.account = account;
+      });
 
-    this.cartNumber=0;
+      this.categoryService.getAll().subscribe(res=>{
+        this.categories = res;
+      })
 
-    if (!localStorage['cart']) this.data = [];
-    else this.data = JSON.parse(localStorage['cart']); 
-    if (!(this.data instanceof Array)) this.data = [];
-    for (let i = 0; i< this.data.length; i++){
-      this.cartNumber++;
-    }
+      this.bannerService.getAll().subscribe(res=>{
+        this.banners = res;
+      })
 
+      this.cartNumber=0;
+
+      if (!localStorage['cart']) this.data = [];
+      else this.data = JSON.parse(localStorage['cart']); 
+      if (!(this.data instanceof Array)) this.data = [];
+      for (let i = 0; i< this.data.length; i++){
+        this.cartNumber++;
+      }
+      if(this.router.url === '/'){
+          this.isIndex = true;
+      }
+      else{
+        this.isIndex = false;
+      }
+  }
+
+  hideBanner(): void{
+    this.isIndex = false;
+  }
+  showBanner(): void{
+    this.isIndex = true;
   }
 
   changeLanguage(languageKey: string): void {

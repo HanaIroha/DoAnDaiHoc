@@ -19,15 +19,13 @@ public interface ProductsRepository extends JpaRepository<Products, Long> {
         nativeQuery = true)
     Page<Products> findAllActive(Pageable pageable);
 
-    @Query(value = "SELECT * FROM PRODUCTS WHERE IS_DISABLE = FALSE AND name Like %:filterKey% AND id_producer Like %:filterProducer% AND price between :minprice and :maxprice and r_am like %:filterRam% and r_om like %:filterRom%",
-        countQuery = "SELECT count(*) FROM PRODUCTS WHERE IS_DISABLE = FALSE AND name Like %:filterKey% AND id_producer Like %:filterProducer% AND price between :minprice and :maxprice and r_am like %:filterRam% and r_om like %:filterRom%",
+    @Query(value = "SELECT * FROM PRODUCTS WHERE IS_DISABLE = FALSE AND name Like %:filterKey% AND id_producer Like :filterProducer AND id_category Like :filterCategory",
+        countQuery = "SELECT count(*) FROM PRODUCTS WHERE IS_DISABLE = FALSE AND name Like %:filterKey% AND id_producer Like :filterProducer AND id_category Like :filterCategory",
         nativeQuery = true)
     Page<Products> findAllActiveWithFilter(@Param("filterKey") String filterKey,
                                            @Param("filterProducer") String filterProducer,
-                                           @Param("minprice")String minprice,
-                                           @Param("maxprice")String maxprice,
-                                           @Param("filterRam")String filterRam,
-                                           @Param("filterRom")String filterRom, Pageable pageable);
+                                           @Param("filterCategory")String filterCategory,
+                                           Pageable pageable);
     @Query(value="SELECT COUNT(*) FROM PRODUCTS WHERE o_s=:os AND IS_DISABLE = FALSE", nativeQuery = true)
     long getAmountPhoneByOS(@Param("os")String os);
 

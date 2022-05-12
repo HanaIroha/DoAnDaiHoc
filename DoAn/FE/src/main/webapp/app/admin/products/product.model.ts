@@ -7,6 +7,7 @@ export interface IProduct {
     code?: string;
     price?: number;
     salePercent?: number;
+    lastPrice?: number;
     quantity?: number;
     supportSim?: string;
     monitor?: string;
@@ -19,6 +20,7 @@ export interface IProduct {
     rOM?: string;
     oS?: string;
     pin?: string;
+    imformation?: string;
     imformationDetails?: string;
     createdAt?: Date;
     updatedAt?: Date;
@@ -34,6 +36,7 @@ export interface IProduct {
         public code?: string,
         public price?: number,
         public salePercent?: number,
+        public lastPrice?: number,
         public quantity?: number,
         public supportSim?: string,
         public monitor?: string,
@@ -46,6 +49,7 @@ export interface IProduct {
         public rOM?: string,
         public oS?: string,
         public pin?: string,
+        public information?: string,
         public informationDetails?: string,
         public createdAt?: Date,
         public updatedAt?: Date,

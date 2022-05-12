@@ -28,14 +28,15 @@
       "ProductDetails",
       "Products",
       "Images",
-      "ProductSpecs"
+      "ProductSpecs",
+      "Banners"
     ],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.7.0",
     "jwtSecretKey": "NTk0ODI0ZjdjZDkwMThlM2M4ZWIxODM5OWVmNThjMjUyZjI1NzNmOWJhOGM4NDI3ZGIwYzdlZmZhMzg5ZGM2Mjc3YTU0NGJkZTdmMmU2ZGZlNTkwNTNiZTgzNDhiZDc0YmUxMjY0ZmRlY2UwYWRlYjdhZjk5NzE5NmM4NWI2MzU=",
     "languages": ["en", "vi"],
-    "lastLiquibaseTimestamp": 1652265829000,
+    "lastLiquibaseTimestamp": 1652311096000,
     "messageBroker": false,
     "nativeLanguage": "en",
     "otherModules": [],

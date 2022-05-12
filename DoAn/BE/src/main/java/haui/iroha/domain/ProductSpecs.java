@@ -20,7 +20,7 @@ public class ProductSpecs implements Serializable {
     @Column(name = "id_product")
     private Long idProduct;
 
-    @Column(name = "jhi_key")
+    @Column(name = "keyname")
     private String key;
 
     @Column(name = "value")

@@ -52,7 +52,7 @@ public interface ProductsService {
 
     Page<ProductsDTO> findAllActive(Pageable pageable);
 
-    Page<ProductsDTO> findAllActiveWithFilter(String filterKey, String filterProducer, String minprice, String maxprice, String filterRam, String filterRom, Pageable pageable);
+    Page<ProductsDTO> findAllActiveWithFilter(String filterKey, String filterProducer, String filterCategory, Pageable pageable);
 
     long getAmountPhoneByOS(String os);
 

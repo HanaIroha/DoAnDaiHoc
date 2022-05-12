@@ -107,6 +107,7 @@ public class ProductsResource {
                 e.printStackTrace();
             }
         }
+        productsDTO.setLastPrice(productsDTO.getSalePercent()!=null?productsDTO.getPrice()/100*(100-productsDTO.getSalePercent()):productsDTO.getPrice());
         productsDTO.setCreatedAt(ZonedDateTime.now());
         productsDTO.setUpdatedAt(ZonedDateTime.now());
 
@@ -178,6 +179,7 @@ public class ProductsResource {
                 e.printStackTrace();
             }
         }
+        productsDTO.setLastPrice(productsDTO.getSalePercent()!=null?productsDTO.getPrice()/100*(100-productsDTO.getSalePercent()):productsDTO.getPrice());
         productsDTO.setUpdatedAt(ZonedDateTime.now());
 
         ProductsDTO result = productsService.save(productsDTO);
@@ -237,48 +239,22 @@ public class ProductsResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
-    @GetMapping("/productsActive/{filterKey}/{filterProducer}/{filterPrice}/{filterRam}/{filterRom}")
+    @GetMapping("/productsActive/{filterKey}/{filterProducer}/{filterCategory}")
     public ResponseEntity<List<ProductsDTO>> getAllProductsActive(@org.springdoc.api.annotations.ParameterObject Pageable pageable,
                                                                   @PathVariable(name = "filterKey", required = false) String filterKey,
                                                                   @PathVariable(name = "filterProducer", required = false) String filterProducer,
-                                                                  @PathVariable(name = "filterPrice", required = false) String filterPrice,
-                                                                  @PathVariable(name = "filterRam", required = false) String filterRam,
-                                                                  @PathVariable(name = "filterRom", required = false) String filterRom) {
+                                                                  @PathVariable(name = "filterCategory", required = false) String filterCategory) {
         if(filterKey.equals("0"))
             filterKey="%";
 
         if(filterProducer.equals("0"))
             filterProducer = "%";
-        if(filterRam.equals("0"))
-            filterRam = "%";
-        if(filterRom.equals("0"))
-            filterRom = "%";
 
-        String minprice = "0";
-        String maxprice = "0";
-
-        int priceCase = Integer.parseInt(filterPrice);
-        switch (priceCase){
-            case 0:
-                minprice="0";
-                maxprice="99999999999";
-                break;
-            case 1:
-                minprice="0";
-                maxprice="3999999";
-                break;
-            case 2:
-                minprice="4000000";
-                maxprice="8000000";
-                break;
-            case 3:
-                minprice="8000001";
-                maxprice="99999999999";
-                break;
-        }
+        if(filterCategory.equals("0"))
+            filterCategory = "%";
 
         log.debug("REST request to get a page of Active Products");
-        Page<ProductsDTO> page = productsService.findAllActiveWithFilter(filterKey, filterProducer, minprice, maxprice, filterRam,filterRom, pageable);
+        Page<ProductsDTO> page = productsService.findAllActiveWithFilter(filterKey, filterProducer, filterCategory, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

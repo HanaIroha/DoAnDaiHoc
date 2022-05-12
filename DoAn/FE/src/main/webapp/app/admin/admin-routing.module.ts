@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { BannersComponent } from './banners/banners.component';
+import { CreateBannerComponent } from './banners/create-banner/create-banner.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CreateCategoriesComponent } from './categories/create-categories/create-categories.component';
 import { UpdateCategoryComponent } from './categories/update-category/update-category.component';
@@ -16,6 +18,7 @@ import { ProductsComponent } from './products/products.component';
 import { UserComponent } from './user/user.component';
 import { DetailUseroderhistoryComponent } from './user/userorderhistory/detail-useroderhistory/detail-useroderhistory.component';
 import { UserorderhistoryComponent } from './user/userorderhistory/userorderhistory.component';
+
 /* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
 
 @NgModule({
@@ -124,6 +127,18 @@ import { UserorderhistoryComponent } from './user/userorderhistory/userorderhist
       {
         path: 'user/orderhistory/detail/:id',
         component: DetailUseroderhistoryComponent,
+      },
+      {
+        path: 'banner',
+        component: BannersComponent,
+      },
+      {
+        path: 'banner/new',
+        component: CreateBannerComponent,
+      },
+      {
+        path: 'banner/edit/:id',
+        component: CreateBannerComponent,
       },
       /* jhipster-needle-add-admin-route - JHipster will add admin routes here */
     ]),

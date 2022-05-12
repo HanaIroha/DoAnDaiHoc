@@ -87,9 +87,9 @@ public class ProductsServiceImpl implements ProductsService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<ProductsDTO> findAllActiveWithFilter(String filterKey, String filterProducer, String minprice, String maxprice, String filterRam, String filterRom, Pageable pageable) {
+    public Page<ProductsDTO> findAllActiveWithFilter(String filterKey, String filterProducer, String filterCategory, Pageable pageable) {
         log.debug("Request to get all Active Products");
-        return productsRepository.findAllActiveWithFilter(filterKey, filterProducer, minprice, maxprice, filterRam,filterRom, pageable).map(productsMapper::toDto);
+        return productsRepository.findAllActiveWithFilter(filterKey, filterProducer, filterCategory, pageable).map(productsMapper::toDto);
     }
 
     @Override

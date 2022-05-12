@@ -9,6 +9,7 @@ import { CategoryService } from 'app/service/category.service';
 import { ProducerService } from 'app/service/producer.service';
 import { ProductService } from 'app/service/product.service';
 import { Product } from '../product.model';
+import { ProductSpec } from '../productSpec.model';
 
 @Component({
   selector: 'jhi-create-product',
@@ -20,10 +21,12 @@ export class CreateProductComponent implements OnInit {
   product = new Product();
   producers: Producer[];
   categories: Category[];
+  numberSpec = [];
   url: any;
   imagePath = "\\content\\imageStorage\\";
   defaultImage = "\\content\\imageStorage\\default.jpg";
   productImage;
+  countSpec: number;
 
   isSaving = false;
 
@@ -41,6 +44,7 @@ export class CreateProductComponent implements OnInit {
     //     this.product=res;
     //     this.updateForm(this.product);
     //   });
+    this.countSpec = 0;
     this.producerService.getAll().subscribe(res=>{
       this.producers = res;
     })
@@ -53,6 +57,17 @@ export class CreateProductComponent implements OnInit {
       this.productService.getOne(id).subscribe(res => {
         this.product=res;
         this.updateForm(this.product);
+      });
+      this.productService
+      .querySpecs({
+        page: 0,
+        size: 9999,
+        sort: ['id_product_spec','asc'],
+      },id)
+      .subscribe({
+        next: (res: HttpResponse<ProductSpec[]>) => {
+          this.numberSpec = res.body;
+        },
       });
     }
   }
@@ -76,8 +91,25 @@ export class CreateProductComponent implements OnInit {
     }
   }
 
-  loadOptions(): void {
+  addItem() {
+    var item = new ProductSpec();
+    this.numberSpec.push(item);
+    this.countSpec++;
+  }
+  
+  deleteSpecInlist(item) {
+    this.numberSpec = this.numberSpec.filter(x => x.idProductSpec !== item.idProductSpec);
+  }
 
+  deleteSpec(item) {
+    if (item.idProductSpec == '' || item.idProductSpec == undefined || item.idProductSpec == null) {
+      this.numberSpec.pop();
+      this.countSpec--;
+    }
+    else{
+      this.productService.deleteSpec(item.idProductSpec).subscribe(res => {});
+      this.deleteSpecInlist(item);
+    }
   }
 
   previousState(): void {
@@ -93,7 +125,7 @@ export class CreateProductComponent implements OnInit {
       formData.append('image', this.productImage);
 
       this.productService.update(this.product.idProduct,formData).subscribe({
-        next: () => this.onSaveSuccess(),
+        next: () => this.onUpdateSuccess(),
         error: () => this.onSaveError(),
       });
     } else {
@@ -101,10 +133,15 @@ export class CreateProductComponent implements OnInit {
       formData.append('product',JSON.stringify(this.product));
       formData.append('image', this.productImage);
 
-      this.productService.create(formData).subscribe({
-        next: () => this.onSaveSuccess(),
-        error: () => this.onSaveError(),
-      });
+      this.productService.create(formData).subscribe(res=>{
+        for(let i = 0; i<this.numberSpec.length;i++){
+          let ps = new ProductSpec();
+          ps = this.numberSpec[i];
+          ps.idProduct = res.idProduct;
+          this.productService.createSpec(ps).subscribe(res=>{});
+        }
+        this.onSaveSuccess();
+      })
     }
   }
 
@@ -118,17 +155,7 @@ export class CreateProductComponent implements OnInit {
       price: product.price,
       salePercent: product.salePercent,
       quantity: product.quantity,
-      supportSim: product.supportSim,
-      monitor: product.monitor,
-      color: product.color,
-      frontCamera: product.frontCamera,
-      rearCamera: product.rearCamera,
-      cPU: product.cPU,
-      gPU: product.gPU,
-      rAM: product.rAM,
-      rOM: product.rOM,
-      oS: product.oS,
-      pin: product.pin,
+      information: product.information,
       informationDetails: product.informationDetails,
     });
     if(product.image){
@@ -144,21 +171,23 @@ export class CreateProductComponent implements OnInit {
     product.price = this.editForm.get(['price'])!.value;
     product.salePercent = this.editForm.get(['salePercent'])!.value;
     product.quantity = this.editForm.get(['quantity'])!.value;
-    product.supportSim = this.editForm.get(['supportSim'])!.value;
-    product.monitor = this.editForm.get(['monitor'])!.value;
-    product.color = this.editForm.get(['color'])!.value;
-    product.frontCamera = this.editForm.get(['frontCamera'])!.value;
-    product.rearCamera = this.editForm.get(['rearCamera'])!.value;
-    product.cPU = this.editForm.get(['cPU'])!.value;
-    product.gPU = this.editForm.get(['gPU'])!.value;
-    product.rAM = this.editForm.get(['rAM'])!.value;
-    product.rOM = this.editForm.get(['rOM'])!.value;
-    product.oS = this.editForm.get(['oS'])!.value;
-    product.pin = this.editForm.get(['pin'])!.value;
+    product.information = this.editForm.get(['information'])!.value;
     product.informationDetails = this.editForm.get(['informationDetails'])!.value;
   }
 
   private onSaveSuccess(): void {
+    this.isSaving = false;
+    this.previousState();
+  }
+
+  private onUpdateSuccess(): void {
+    for(let i = this.numberSpec.length-1; i > this.numberSpec.length-this.countSpec-1;i--){
+      var a = new ProductSpec();
+      a.key = this.numberSpec[i].key;
+      a.value = this.numberSpec[i].value;
+      a.idProduct = this.product.idProduct;
+      this.productService.createSpec(a).subscribe(res=>{});
+  }
     this.isSaving = false;
     this.previousState();
   }
@@ -198,17 +227,7 @@ export class CreateProductComponent implements OnInit {
         Validators.required,
       ],
     ],
-    supportSim: [],
-    monitor: [],
-    color: [],
-    frontCamera: [],
-    rearCamera: [],
-    cPU: [],
-    gPU: [],
-    rAM: [],
-    rOM: [],
-    oS: [],
-    pin: [],
+    information: [],
     informationDetails: [],
     image: [],
     idCategory: [

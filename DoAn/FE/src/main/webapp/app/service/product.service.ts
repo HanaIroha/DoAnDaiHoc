@@ -5,6 +5,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { Pagination } from 'app/core/request/request.model';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IProduct } from 'app/admin/products/product.model';
+import { IProductSpec } from 'app/admin/products/productSpec.model';
 
 @Injectable({
   providedIn: 'root',
@@ -54,9 +55,9 @@ export class ProductService {
     return this.http.get<IProduct[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
-  queryActive(req?: Pagination, filterKey?, filterProducer?, filterPrice?, filterRam?, filterRom? ): Observable<HttpResponse<IProduct[]>> {
+  queryActive(req?: Pagination, filterKey?, filterProducer?, filterPrice? ): Observable<HttpResponse<IProduct[]>> {
     const options = createRequestOption(req);
-    return this.http.get<IProduct[]>(`${this.applicationConfigService.getEndpointFor('api/productsActive/')}` + filterKey + '/' + filterProducer +'/'+filterPrice +'/'+filterRam+'/'+filterRom, { params: options, observe: 'response' });
+    return this.http.get<IProduct[]>(`${this.applicationConfigService.getEndpointFor('api/productsActive/')}` + filterKey + '/' + filterProducer +'/'+filterPrice, { params: options, observe: 'response' });
   }
 
   getAmountByOs(os:string){
@@ -65,5 +66,18 @@ export class ProductService {
 
   getPriceById(id){
     return this.http.get<any>(`${this.applicationConfigService.getEndpointFor('api/products/pricebyid/'+id)}`);
+  }
+
+  createSpec(productspec: IProductSpec): Observable<IProductSpec> {
+    return this.http.post<IProductSpec>(`${this.applicationConfigService.getEndpointFor('api/product-specs')}`, productspec);
+  }
+
+  deleteSpec(id) {
+    return this.http.delete<any>(`${this.applicationConfigService.getEndpointFor('api/product-specs/')}` + id);
+  }
+
+  querySpecs(req?: Pagination, id?: any): Observable<HttpResponse<IProductSpec[]>> {
+    const options = createRequestOption(req);
+    return this.http.get<IProductSpec[]>(`${this.applicationConfigService.getEndpointFor('api/product-specsByProductId/')}` +id, { params: options, observe: 'response' });
   }
 }

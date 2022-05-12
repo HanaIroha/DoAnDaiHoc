@@ -25,29 +25,11 @@ public class ProductsDTO implements Serializable {
 
     private Long salePercent;
 
+    private Long lastPrice;
+
     private Long quantity;
 
-    private String supportSim;
-
-    private String monitor;
-
-    private String color;
-
-    private String frontCamera;
-
-    private String rearCamera;
-
-    private String cPU;
-
-    private String gPU;
-
-    private String rAM;
-
-    private String rOM;
-
-    private String oS;
-
-    private String pin;
+    private String information;
 
     private String informationDetails;
 
@@ -121,6 +103,14 @@ public class ProductsDTO implements Serializable {
         this.salePercent = salePercent;
     }
 
+    public Long getLastPrice() {
+        return lastPrice;
+    }
+
+    public void setLastPrice(Long lastPrice) {
+        this.lastPrice = lastPrice;
+    }
+
     public Long getQuantity() {
         return quantity;
     }
@@ -129,92 +119,12 @@ public class ProductsDTO implements Serializable {
         this.quantity = quantity;
     }
 
-    public String getSupportSim() {
-        return supportSim;
+    public String getInformation() {
+        return information;
     }
 
-    public void setSupportSim(String supportSim) {
-        this.supportSim = supportSim;
-    }
-
-    public String getMonitor() {
-        return monitor;
-    }
-
-    public void setMonitor(String monitor) {
-        this.monitor = monitor;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getFrontCamera() {
-        return frontCamera;
-    }
-
-    public void setFrontCamera(String frontCamera) {
-        this.frontCamera = frontCamera;
-    }
-
-    public String getRearCamera() {
-        return rearCamera;
-    }
-
-    public void setRearCamera(String rearCamera) {
-        this.rearCamera = rearCamera;
-    }
-
-    public String getcPU() {
-        return cPU;
-    }
-
-    public void setcPU(String cPU) {
-        this.cPU = cPU;
-    }
-
-    public String getgPU() {
-        return gPU;
-    }
-
-    public void setgPU(String gPU) {
-        this.gPU = gPU;
-    }
-
-    public String getrAM() {
-        return rAM;
-    }
-
-    public void setrAM(String rAM) {
-        this.rAM = rAM;
-    }
-
-    public String getrOM() {
-        return rOM;
-    }
-
-    public void setrOM(String rOM) {
-        this.rOM = rOM;
-    }
-
-    public String getoS() {
-        return oS;
-    }
-
-    public void setoS(String oS) {
-        this.oS = oS;
-    }
-
-    public String getPin() {
-        return pin;
-    }
-
-    public void setPin(String pin) {
-        this.pin = pin;
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public String getInformationDetails() {
@@ -282,18 +192,9 @@ public class ProductsDTO implements Serializable {
             ", code='" + getCode() + "'" +
             ", price=" + getPrice() +
             ", salePercent=" + getSalePercent() +
+            ", lastPrice=" + getLastPrice() +
             ", quantity=" + getQuantity() +
-            ", supportSim='" + getSupportSim() + "'" +
-            ", monitor='" + getMonitor() + "'" +
-            ", color='" + getColor() + "'" +
-            ", frontCamera='" + getFrontCamera() + "'" +
-            ", rearCamera='" + getRearCamera() + "'" +
-            ", cPU='" + getcPU() + "'" +
-            ", gPU='" + getgPU() + "'" +
-            ", rAM='" + getrAM() + "'" +
-            ", rOM='" + getrOM() + "'" +
-            ", oS='" + getoS() + "'" +
-            ", pin='" + getPin() + "'" +
+            ", information='" + getInformation() + "'" +
             ", informationDetails='" + getInformationDetails() + "'" +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
