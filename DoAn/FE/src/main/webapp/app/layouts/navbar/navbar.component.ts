@@ -122,4 +122,8 @@ export class NavbarComponent implements OnInit {
   toggleNavbar(): void {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
   }
+
+  search(value): void {
+    this.router.navigate(['/shop'],{queryParams: {f1: value}});
+  }
 }

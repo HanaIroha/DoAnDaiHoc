@@ -39,12 +39,12 @@
       <div class="col-lg-6 col-6 text-left">
           <form action="">
               <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Nhập tên sản phẩm....">
-                  <div class="input-group-append">
-                      <span class="input-group-text bg-transparent text-primary">
-                          <i class="fa fa-search"></i>
-                      </span>
-                  </div>
+                  <input #keySearch type="text" class="form-control" placeholder="Nhập tên sản phẩm....">
+                  <a href="javascript:void(0)" class="input-group-append" (click)="search(keySearch.value)">
+                    <span class="input-group-text bg-transparent text-primary">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </a>
               </div>
           </form>
       </div>
@@ -109,8 +109,8 @@
             </nav>
             <div id="header-carousel" class="carousel slide" data-bs-ride="carousel" *ngIf="isIndex">
                 <div class="carousel-inner">
-                    <ng-container *ngFor="let item of banners;">
-                      <div class="carousel-item active" style="height: 410px;">
+                    <ng-container *ngFor="let item of banners; let i = index">
+                      <div class="carousel-item active" style="height: 410px;" *ngIf="i==0">
                         <img class="img-fluid" [src]="item.image ? imagePath + item.image : defaultImage" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
@@ -120,6 +120,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="carousel-item" style="height: 410px;" *ngIf="i!=0">
+                      <img class="img-fluid" [src]="item.image ? imagePath + item.image : defaultImage" alt="Image">
+                      <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                          <div class="p-3" style="max-width: 700px;">
+                              <h4 class="text-light text-uppercase font-weight-medium mb-3">{{item.upperTitle}}</h4>
+                              <h3 class="display-4 text-white font-weight-semi-bold mb-4">{{item.mainTitle}}</h3>
+                              <a href="{{item.linkNavigate}}" class="btn btn-light py-2 px-3" (click)="hideBanner()">Đến Ngay</a>
+                          </div>
+                      </div>
+                  </div>
                     </ng-container>
                 </div>
                 <a class="carousel-control-prev" href="#header-carousel" data-bs-slide="prev">

@@ -9,17 +9,6 @@ export interface IProduct {
     salePercent?: number;
     lastPrice?: number;
     quantity?: number;
-    supportSim?: string;
-    monitor?: string;
-    color?: string;
-    frontCamera?: string;
-    rearCamera?: string;
-    cPU?: string;
-    gPU?: string;
-    rAM?: string;
-    rOM?: string;
-    oS?: string;
-    pin?: string;
     imformation?: string;
     imformationDetails?: string;
     createdAt?: Date;
@@ -38,17 +27,6 @@ export interface IProduct {
         public salePercent?: number,
         public lastPrice?: number,
         public quantity?: number,
-        public supportSim?: string,
-        public monitor?: string,
-        public color?: string,
-        public frontCamera?: string,
-        public rearCamera?: string,
-        public cPU?: string,
-        public gPU?: string,
-        public rAM?: string,
-        public rOM?: string,
-        public oS?: string,
-        public pin?: string,
         public information?: string,
         public informationDetails?: string,
         public createdAt?: Date,

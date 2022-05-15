@@ -1,8 +1,11 @@
 package haui.iroha.web.rest;
 
 import haui.iroha.repository.OrderDetailsRepository;
+import haui.iroha.repository.ProductsRepository;
 import haui.iroha.service.OrderDetailsService;
+import haui.iroha.service.ProductsService;
 import haui.iroha.service.dto.OrderDetailsDTO;
+import haui.iroha.service.dto.ProductsDTO;
 import haui.iroha.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -42,9 +45,15 @@ public class OrderDetailsResource {
 
     private final OrderDetailsRepository orderDetailsRepository;
 
-    public OrderDetailsResource(OrderDetailsService orderDetailsService, OrderDetailsRepository orderDetailsRepository) {
+    private final ProductsService productsService;
+
+    private final ProductsRepository productsRepository;
+
+    public OrderDetailsResource(OrderDetailsService orderDetailsService, OrderDetailsRepository orderDetailsRepository, ProductsService productsService, ProductsRepository productsRepository) {
         this.orderDetailsService = orderDetailsService;
         this.orderDetailsRepository = orderDetailsRepository;
+        this.productsService = productsService;
+        this.productsRepository = productsRepository;
     }
 
     /**
@@ -165,6 +174,42 @@ public class OrderDetailsResource {
     public long getOrderValue(@PathVariable("id")long id) {
         log.debug("REST request to get ORDER VALUE BY ID");
         return orderDetailsService.orderValue(id);
+    }
+
+    @GetMapping("/orderdetailscheck/{id}")
+    public ResponseEntity<String> checkOrderDetails(@PathVariable("id")long id) {
+        log.debug("REST request to check ORDER BY ID");
+        List<OrderDetailsDTO> od = orderDetailsService.findAllByOrderId(id, Pageable.unpaged()).toList();
+        long totalnumber = od.size();
+        long oknumber = 0;
+        for(OrderDetailsDTO check : od){
+            ProductsDTO a = productsService.findOne(check.getIdProduct()).get();
+            if(check.getQuantity()<=a.getQuantity())
+                oknumber++;
+        }
+        if(totalnumber == oknumber)
+            return new ResponseEntity<>("OK", HttpStatus.OK);
+        else
+            return new ResponseEntity<>("FAIL", HttpStatus.OK);
+    }
+
+    @GetMapping("/orderdetailsok/{id}")
+    public ResponseEntity<String> orderComplete(@PathVariable("id")long id) {
+        log.debug("REST request to complete ORDER BY ID");
+        List<OrderDetailsDTO> od = orderDetailsService.findAllByOrderId(id, Pageable.unpaged()).toList();
+        long totalnumber = od.size();
+        long oknumber = 0;
+        for(OrderDetailsDTO check : od){
+            ProductsDTO a = productsService.findOne(check.getIdProduct()).get();
+            a.setQuantity(a.getQuantity()-check.getQuantity());
+            a.setUpdatedAt(ZonedDateTime.now());
+            ProductsDTO result = productsService.save(a);
+            oknumber++;
+        }
+        if(totalnumber == oknumber)
+            return new ResponseEntity<>("OK", HttpStatus.OK);
+        else
+            return new ResponseEntity<>("FAIL", HttpStatus.OK);
     }
 
     /**

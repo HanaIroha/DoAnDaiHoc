@@ -127,6 +127,8 @@ export class ShopDetailComponent implements OnInit {
   increaseBuyAmount(): void{
     if(this.buyAmount<this.product.quantity)
       this.buyAmount++;
+    else
+    alert("Không đủ số lượng trong kho!");
   }
 
   decreaseBuyAmount(): void{
@@ -135,38 +137,42 @@ export class ShopDetailComponent implements OnInit {
   }
 
   addCart():void{
-    if(this.buyAmount<=this.product.quantity){
-      let data;
-      if (!localStorage['cart']) data = [];
-      else data = JSON.parse(localStorage['cart']); 
-      if (!(data instanceof Array)) data = [];
-
-      
-      let item = { 'id':this.product.idProduct, 'quantity':this.buyAmount};
-      let exist = false;
-      let sl = 0;
-        for (let i = 0; i< data.length; i++){
-            if(data[i].id===item.id){
-              data[i].quantity = data[i].quantity + this.buyAmount;
-              exist = true;
+    let sl;
+      this.productService.getOne(this.id).subscribe(res => {
+        sl=res;
+        if(this.buyAmount<=this.product.quantity){
+          let data;
+          if (!localStorage['cart']) data = [];
+          else data = JSON.parse(localStorage['cart']); 
+          if (!(data instanceof Array)) data = [];
+    
+          
+          let item = { 'id':this.product.idProduct, 'quantity':this.buyAmount};
+          let exist = false;
+          let sl = 0;
+            for (let i = 0; i< data.length; i++){
+                if(data[i].id===item.id){
+                  data[i].quantity = data[i].quantity + this.buyAmount;
+                  exist = true;
+                }
+                sl++;
             }
-            sl++;
+            if(!exist){
+              if(!(data instanceof Array))
+                data= [data];
+              data.push(item);
+            }
+            this.cartNumber=sl;
+            if(!exist)
+              this.cartNumber++;
+            localStorage.setItem('cart',JSON.stringify(data));
+            document.getElementById("numberItemCart").innerHTML = this.cartNumber.toString();
+          alert('Thêm thành công ' + this.buyAmount + ' ' + this.product.name + ' vào giỏ hàng!');
         }
-        if(!exist){
-          if(!(data instanceof Array))
-            data= [data];
-          data.push(item);
+        else{
+          alert('Thêm vào giỏ hàng thất bại, trong kho không còn đủ số lượng yêu cầu!');
         }
-        this.cartNumber=sl;
-        if(!exist)
-          this.cartNumber++;
-        localStorage.setItem('cart',JSON.stringify(data));
-        document.getElementById("numberItemCart").innerHTML = this.cartNumber.toString();
-      alert('Thêm thành công ' + this.buyAmount + ' ' + this.product.name + ' vào giỏ hàng!');
-    }
-    else{
-      alert('Thêm vào giỏ hàng thất bại, trong kho không còn đủ số lượng yêu cầu!');
-    }
+      });
   }
 
   updateCartNumber(isMore:boolean){

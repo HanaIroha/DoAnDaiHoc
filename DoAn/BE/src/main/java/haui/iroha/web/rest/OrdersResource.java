@@ -1,7 +1,9 @@
 package haui.iroha.web.rest;
 
 import haui.iroha.domain.User;
+import haui.iroha.repository.OrderDetailsRepository;
 import haui.iroha.repository.OrdersRepository;
+import haui.iroha.security.AuthoritiesConstants;
 import haui.iroha.security.SecurityUtils;
 import haui.iroha.service.MailService;
 import haui.iroha.service.OrderDetailsService;
@@ -53,15 +55,21 @@ public class OrdersResource {
 
     private final OrdersRepository ordersRepository;
 
+    private final OrderDetailsService orderDetailsService;
+
+    private final OrderDetailsRepository orderDetailsRepository;
+
     private final UserService userService;
 
     private final MailService mailService;
 
-    public OrdersResource(OrdersService ordersService, OrdersRepository ordersRepository, UserService userService, MailService mailService) {
+    public OrdersResource(OrdersService ordersService, OrdersRepository ordersRepository, UserService userService, MailService mailService, OrderDetailsService orderDetailsService, OrderDetailsRepository orderDetailsRepository) {
         this.ordersService = ordersService;
         this.ordersRepository = ordersRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.orderDetailsService = orderDetailsService;
+        this.orderDetailsRepository = orderDetailsRepository;
     }
 
     /**
@@ -250,11 +258,29 @@ public class OrdersResource {
     }
 
     @PutMapping("/setordersstatus/{idOrder}/{status}")
-    public String updateOrdersStatus(@PathVariable(value = "idOrder")Long idOrder,@PathVariable(value="status")long status){
+    public ResponseEntity<String> updateOrdersStatus(@PathVariable(value = "idOrder")Long idOrder,@PathVariable(value="status")long status){
         OrdersDTO dt = ordersService.findOne(idOrder).get();
-        dt.setUpdatedAt(ZonedDateTime.now());
-        dt.setOrderStatus(status);
-        OrdersDTO result = ordersService.save(dt);
-        return "OK";
+        String userLogin = SecurityUtils
+            .getCurrentUserLogin().get();
+        if(status == 1){
+            if(dt.getOrderStatus()==0 && SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.ADMIN)) {
+                dt.setUpdatedAt(ZonedDateTime.now());
+                dt.setOrderStatus(status);
+                OrdersDTO result = ordersService.save(dt);
+                return new ResponseEntity<>("OK", HttpStatus.OK);
+            }
+        }
+        else if (status == 2){
+            if(dt.getOrderStatus()==0 && (userLogin.equals(dt.getLogin()) || SecurityUtils.hasCurrentUserThisAuthority(AuthoritiesConstants.ADMIN))) {
+                dt.setUpdatedAt(ZonedDateTime.now());
+                dt.setOrderStatus(status);
+                OrdersDTO result = ordersService.save(dt);
+                return new ResponseEntity<>("OK", HttpStatus.OK);
+            }
+        }
+        else{
+            return new ResponseEntity<>("FAIL", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("FAIL", HttpStatus.OK);
     }
 }

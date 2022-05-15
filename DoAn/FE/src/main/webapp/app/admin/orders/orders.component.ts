@@ -43,8 +43,30 @@ export class OrdersComponent implements OnInit {
   }
 
   setStatus(id,status):void{
-    this.orderService.setOrderStatus(id,status).subscribe(res=>{});
-    location.reload();
+    if(status==1){
+      this.orderService.checkOrder(id).subscribe(res=>{
+        if(res=="OK"){
+          this.orderService.completeOrder(id).subscribe(res=>{
+            if(res=="OK"){
+              this.orderService.setOrderStatus(id,status).subscribe(res=>{
+                this.loadAll();
+              });
+            }
+            else{
+              alert("Lỗi không thể đặt hàng");
+            }
+          });
+        }
+        else{
+          alert("Không đủ sản phẩm trong kho!");
+        }
+      });
+    }
+    else{
+      this.orderService.setOrderStatus(id,status).subscribe(res=>{});
+      this.loadAll();
+    }
+    
   }
 
   deleteCategory(idOrder): void {

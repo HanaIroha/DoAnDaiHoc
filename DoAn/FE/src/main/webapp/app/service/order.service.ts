@@ -62,6 +62,7 @@ export class OrderService {
     const options = createRequestOption(req);
     return this.http.get<IOrder[]>(`${this.applicationConfigService.getEndpointFor('api/ordersbystatus/')}` +status, { params: options, observe: 'response' });
   }
+
   queryByLogin(req?: Pagination): Observable<HttpResponse<IOrder[]>> {
     const options = createRequestOption(req);
     return this.http.get<IOrder[]>(`${this.applicationConfigService.getEndpointFor('api/ordersbylogin')}`, { params: options, observe: 'response' });
@@ -80,6 +81,12 @@ export class OrderService {
     return this.http.get<any>(`${this.applicationConfigService.getEndpointFor('api/ordervalue/')}` + id);
   }
   setOrderStatus(id,status) {
-    return this.http.put<any>(`${this.applicationConfigService.getEndpointFor('api/setordersstatus/')}` + id +'/'+status, null);
+    return this.http.put(`${this.applicationConfigService.getEndpointFor('api/setordersstatus/')}` + id +'/'+status, null, { responseType: 'text' });
+  }
+  checkOrder(id) {
+    return this.http.get(`${this.applicationConfigService.getEndpointFor('api/orderdetailscheck/')}` + id, { responseType: 'text' });
+  }
+  completeOrder(id) {
+    return this.http.get(`${this.applicationConfigService.getEndpointFor('api/orderdetailsok/')}` + id, { responseType: 'text' });
   }
 }
