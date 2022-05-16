@@ -14,13 +14,13 @@
             </select>
       </div>
       <div class="d-flex col-lg-3">
-        <input #filterKey class="form-control" id="filterKey" placeholder="Search Keyword" (keyup.enter)="loadAll(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterCategory.value)">
+        <input #filterKey class="form-control" id="filterKey" placeholder="Nhập tên sản phẩm..." (keyup.enter)="loadAll(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterCategory.value)">
       </div>
         <div class="d-flex col-lg-3">
-          <button class="btn btn-primary jh-create-entity" style="width: 750px; height: 60px;" (click)="loadAll(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterCategory.value)" [disabled]="isLoading">
+          <!-- <button class="btn btn-primary jh-create-entity" style="width: 750px; height: 60px;" (click)="loadAll(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterCategory.value)" [disabled]="isLoading">
             <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
             <span >Xuất Excel</span>
-          </button>
+          </button> -->
           <button class="btn btn-info me-2" style="width: 750px; height: 60px;" (click)="loadAll(filterKey.value.length==0?0:filterKey.value,filterProducer.value,filterCategory.value)" [disabled]="isLoading">
             <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
             <span >Làm mới</span>

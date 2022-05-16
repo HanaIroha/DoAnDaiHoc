@@ -15,6 +15,7 @@ import { CreateProductComponent } from './products/create-product/create-product
 import { CreateImageComponent } from './products/image/create-image/create-image.component';
 import { ImageComponent } from './products/image/image.component';
 import { ProductsComponent } from './products/products.component';
+import { StatisticComponent } from './statistic/statistic.component';
 import { UserComponent } from './user/user.component';
 import { DetailUseroderhistoryComponent } from './user/userorderhistory/detail-useroderhistory/detail-useroderhistory.component';
 import { UserorderhistoryComponent } from './user/userorderhistory/userorderhistory.component';
@@ -139,6 +140,10 @@ import { UserorderhistoryComponent } from './user/userorderhistory/userorderhist
       {
         path: 'banner/edit/:id',
         component: CreateBannerComponent,
+      },
+      {
+        path: 'statistic',
+        component: StatisticComponent,
       },
       /* jhipster-needle-add-admin-route - JHipster will add admin routes here */
     ]),

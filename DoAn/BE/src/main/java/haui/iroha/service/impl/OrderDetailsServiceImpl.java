@@ -85,4 +85,19 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
         log.debug("Request to get all ORDERVALUE: {}", id);
         return orderDetailsRepository.orderValue(id);
     }
+
+    @Override
+    public long orderValueByTime(long month, long year) {
+        return orderDetailsRepository.orderValueByTime(month, year);
+    }
+
+    @Override
+    public long orderAmountByTime(long month, long year) {
+        return orderDetailsRepository.orderAmountByTime(month, year);
+    }
+
+    @Override
+    public long orderItemAmountByTime(long month, long year) {
+        return orderDetailsRepository.orderItemAmountByTime(month, year);
+    }
 }

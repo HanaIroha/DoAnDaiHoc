@@ -89,4 +89,8 @@ export class OrderService {
   completeOrder(id) {
     return this.http.get(`${this.applicationConfigService.getEndpointFor('api/orderdetailsok/')}` + id, { responseType: 'text' });
   }
+
+  orderStatic(year) {
+    return this.http.get(`${this.applicationConfigService.getEndpointFor('api/orderstatic/')}` + year, { responseType: 'text' });
+  }
 }

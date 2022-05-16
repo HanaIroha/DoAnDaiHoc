@@ -20,7 +20,19 @@ public interface OrderDetailsRepository extends JpaRepository<OrderDetails, Long
         nativeQuery = true)
     Page<OrderDetails> findAllByOrderId(@Param("id")long id, Pageable pageable);
 
+    @Query(value = "SELECT COALESCE(SUM(PRICE),0) FROM ORDER_DETAILS JOIN ORDERS ON ORDER_DETAILS.ID_ORDER = ORDERS.ID_ORDER WHERE MONTH(ORDERS.UPDATED_AT) = :month AND YEAR(ORDERS.UPDATED_AT) = :year AND ORDER_STATUS = 1",
+        nativeQuery = true)
+   long orderValueByTime(@Param("month")long month, @Param("year")long year);
+
+    @Query(value = "SELECT COALESCE(SUM(QUANTITY),0) FROM ORDER_DETAILS JOIN ORDERS ON ORDER_DETAILS.ID_ORDER = ORDERS.ID_ORDER WHERE MONTH(ORDERS.UPDATED_AT) = :month AND YEAR(ORDERS.UPDATED_AT) = :year AND ORDER_STATUS = 1",
+        nativeQuery = true)
+    long orderItemAmountByTime(@Param("month")long month, @Param("year")long year);
+
+    @Query(value = "SELECT COALESCE(COUNT(ID_ORDER_DETAIL),0) FROM ORDER_DETAILS JOIN ORDERS ON ORDER_DETAILS.ID_ORDER = ORDERS.ID_ORDER WHERE MONTH(ORDERS.UPDATED_AT) = :month AND YEAR(ORDERS.UPDATED_AT) = :year AND ORDER_STATUS = 1",
+        nativeQuery = true)
+    long orderAmountByTime(@Param("month")long month, @Param("year")long year);
+
     @Query(value = "SELECT SUM(PRICE) FROM ORDER_DETAILS WHERE ID_ORDER = :id",
         nativeQuery = true)
-   long orderValue(@Param("id")long id);
+    long orderValue(@Param("id")long id);
 }

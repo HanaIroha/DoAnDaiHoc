@@ -1,0 +1,60 @@
+<div>
+    <h2>
+      <span id="user-management-page-heading">Thống kê doanh thu</span>
+    </h2>
+    <div class="d-flex col-lg-3">
+        <input class="form-control" id="filterKey" placeholder="Nhập năm..." (keyup.enter)="loadAll()" [(ngModel)]="thisYear">
+      </div>
+  
+    <jhi-alert-error></jhi-alert-error>
+  
+    <jhi-alert></jhi-alert>
+  
+    <div class="table-responsive">
+      <table class="table table-striped" aria-describedby="user-management-page-heading">
+        <thead>
+          <tr>
+            <th ><span >Tháng</span></th>
+            <th ><span >Tổng số đơn đã duyệt</span></th>
+            <th ><span >Tổng số hàng đã bán</span></th>
+            <th ><span >Tổng doanh thu</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of staticItems; let i = index">
+            <td style="font-size: 1.2rem !important;">Tháng {{i+1}}</td>
+            <td style="font-size: 1.2rem !important;">{{item.ordercount}}</td>
+            <td style="font-size: 1.2rem !important;">{{item.itemcount}}</td>
+            <td style="font-size: 1.2rem !important; color:green ;">{{ item.value | number }}đ</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  
+  <!-- <div class="row" style="margin-left: 30px">
+    <div class="col-md-12 col-xs-12">
+      <div class="menu-action-dv">
+        <h3>DANH SÁCH DANH MỤC</h3>
+        <div class="list-action-dv">
+          <button class="btn-action-dv blue" tabindex="0" style="border: none" [routerLink]="['createCategories']">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" width="2" height="12" rx="1" fill="white" />
+              <rect x="12" y="5" width="2" height="12" rx="1" transform="rotate(90 12 5)" fill="white" />
+            </svg>
+            Tạo mới
+          </button>
+        </div>
+      </div>
+  
+      <table>
+        <tr *ngFor="let item of datas">
+          <td>{{ item.idCategory }}</td>
+          <td>{{ item.name }}</td>
+          <td><a [routerLink]="['updateCategories', item.idCategory]">Sửa</a></td>
+        </tr>
+      </table>
+    </div>
+  </div> -->
+  

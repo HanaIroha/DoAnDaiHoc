@@ -51,4 +51,10 @@ public interface OrderDetailsService {
     Page<OrderDetailsDTO> findAllByOrderId(long id, Pageable pageable);
 
     long orderValue(long id);
+
+    long orderValueByTime(long month, long year);
+
+    long orderAmountByTime(long month, long year);
+
+    long orderItemAmountByTime(long month, long year);
 }

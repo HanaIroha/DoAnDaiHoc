@@ -9,18 +9,14 @@ import haui.iroha.service.MailService;
 import haui.iroha.service.OrderDetailsService;
 import haui.iroha.service.OrdersService;
 import haui.iroha.service.UserService;
-import haui.iroha.service.dto.AdminUserDTO;
-import haui.iroha.service.dto.CommentsDTO;
-import haui.iroha.service.dto.OrderDetailsDTO;
-import haui.iroha.service.dto.OrdersDTO;
+import haui.iroha.service.dto.*;
 import haui.iroha.service.impl.OrderDetailsServiceImpl;
 import haui.iroha.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -282,5 +278,20 @@ public class OrdersResource {
             return new ResponseEntity<>("FAIL", HttpStatus.OK);
         }
         return new ResponseEntity<>("FAIL", HttpStatus.OK);
+    }
+
+    @GetMapping("/orderstatic/{year}")
+    public ResponseEntity<String> orderComplete(@PathVariable("year")long year) {
+        log.debug("REST request to static");
+        String result = "";
+        for(long i = 1;i<=12;i++){
+            result += String.valueOf(orderDetailsService.orderAmountByTime(i,year)) + "&" +
+                String.valueOf(orderDetailsService.orderItemAmountByTime(i,year)) + "&" +
+                String.valueOf(orderDetailsService.orderValueByTime(i,year));
+            if(i!=12){
+                result += "|";
+            }
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

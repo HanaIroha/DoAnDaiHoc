@@ -53,6 +53,7 @@ import { DetailUseroderhistoryComponent } from './admin/user/userorderhistory/de
 import { EditorModule } from '@progress/kendo-angular-editor';
 import { BannersComponent } from './admin/banners/banners.component';
 import { CreateBannerComponent } from './admin/banners/create-banner/create-banner.component';
+import { StatisticComponent } from './admin/statistic/statistic.component';
 
 
 @NgModule({
@@ -110,6 +111,7 @@ import { CreateBannerComponent } from './admin/banners/create-banner/create-bann
     DetailUseroderhistoryComponent,
     BannersComponent,
     CreateBannerComponent,
+    StatisticComponent,
   ],
   bootstrap: [MainComponent],
 })

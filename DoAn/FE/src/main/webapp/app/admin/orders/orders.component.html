@@ -45,6 +45,11 @@
                   <fa-icon icon="eye"></fa-icon>
                   <span class="d-none d-md-inline" >View</span>
                 </button> -->
+                <button type="submit" class="btn btn-primary btn-sm" [routerLink]="['detail', item.idOrder]">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" >Xuất PDF</span>
+                </button>
+
                 <button type="submit" class="btn btn-secondary btn-sm" [routerLink]="['detail', item.idOrder]">
                     <fa-icon icon="pencil-alt"></fa-icon>
                     <span class="d-none d-md-inline" >Xem chi tiết</span>
