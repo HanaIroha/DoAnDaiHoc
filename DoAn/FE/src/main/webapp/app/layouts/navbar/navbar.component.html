@@ -49,7 +49,7 @@
           </form>
       </div>
       <div class="col-lg-3 col-6 text-right">
-          <a routerLink="cart" class="btn border">
+          <a routerLink="cart" class="btn border" (click)="hideBanner()">
               <i class="fas fa-shopping-cart text-primary"></i>
               <span class="badge" id="numberItemCart">{{cartNumber}}</span>
           </a>
