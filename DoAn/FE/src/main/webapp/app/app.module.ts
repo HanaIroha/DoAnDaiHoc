@@ -54,6 +54,7 @@ import { EditorModule } from '@progress/kendo-angular-editor';
 import { BannersComponent } from './admin/banners/banners.component';
 import { CreateBannerComponent } from './admin/banners/create-banner/create-banner.component';
 import { StatisticComponent } from './admin/statistic/statistic.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 
 @NgModule({
@@ -112,6 +113,7 @@ import { StatisticComponent } from './admin/statistic/statistic.component';
     BannersComponent,
     CreateBannerComponent,
     StatisticComponent,
+    AboutUsComponent,
   ],
   bootstrap: [MainComponent],
 })

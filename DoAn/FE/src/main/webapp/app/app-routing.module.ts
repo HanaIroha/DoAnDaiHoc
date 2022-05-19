@@ -11,6 +11,7 @@ import { ShopComponent } from './shop/shop.component';
 import { ShopDetailComponent } from './shop-detail/shop-detail.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   imports: [
@@ -52,6 +53,10 @@ import { CheckoutComponent } from './checkout/checkout.component';
           path: 'checkout',
           component: CheckoutComponent,
           canActivate: [UserRouteAccessService],
+        },
+        {
+          path: 'aboutus',
+          component: AboutUsComponent,
         },
         navbarRoute,
         ...errorRoute,

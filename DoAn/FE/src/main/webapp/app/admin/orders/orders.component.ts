@@ -131,4 +131,7 @@ export class OrdersComponent implements OnInit {
     };
   }
 
+  exportPDF(id): void{
+    this.orderService.export(id);
+  }
 }

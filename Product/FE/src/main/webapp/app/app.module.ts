@@ -50,6 +50,7 @@ import { OrderdetailsComponent } from './admin/orders/orderdetails/orderdetails.
 import { UserComponent } from './admin/user/user.component';
 import { UserorderhistoryComponent } from './admin/user/userorderhistory/userorderhistory.component';
 import { DetailUseroderhistoryComponent } from './admin/user/userorderhistory/detail-useroderhistory/detail-useroderhistory.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 
 @NgModule({
@@ -104,6 +105,7 @@ import { DetailUseroderhistoryComponent } from './admin/user/userorderhistory/de
     UserComponent,
     UserorderhistoryComponent,
     DetailUseroderhistoryComponent,
+    AboutUsComponent,
   ],
   bootstrap: [MainComponent],
 })

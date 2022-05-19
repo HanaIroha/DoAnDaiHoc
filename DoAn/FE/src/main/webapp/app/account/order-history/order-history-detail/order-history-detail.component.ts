@@ -79,7 +79,7 @@ export class OrderHistoryDetailComponent implements OnInit {
           this.name.push(res.name);
           this.image.push(res.image);
       });
-      this.allPrice=this.allPrice+this.orderDetails[i].price;
+      this.allPrice=this.allPrice+this.orderDetails[i].price*this.orderDetails[i].quantity;
     }
   }
 

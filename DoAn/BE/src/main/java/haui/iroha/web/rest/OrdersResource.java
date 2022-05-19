@@ -5,13 +5,13 @@ import haui.iroha.repository.OrderDetailsRepository;
 import haui.iroha.repository.OrdersRepository;
 import haui.iroha.security.AuthoritiesConstants;
 import haui.iroha.security.SecurityUtils;
-import haui.iroha.service.MailService;
-import haui.iroha.service.OrderDetailsService;
-import haui.iroha.service.OrdersService;
-import haui.iroha.service.UserService;
+import haui.iroha.service.*;
 import haui.iroha.service.dto.*;
 import haui.iroha.service.impl.OrderDetailsServiceImpl;
 import haui.iroha.web.rest.errors.BadRequestAlertException;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.ZonedDateTime;
@@ -19,11 +19,14 @@ import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -59,13 +62,16 @@ public class OrdersResource {
 
     private final MailService mailService;
 
-    public OrdersResource(OrdersService ordersService, OrdersRepository ordersRepository, UserService userService, MailService mailService, OrderDetailsService orderDetailsService, OrderDetailsRepository orderDetailsRepository) {
+    private final OrderPDFExporter orderPDFExporter;
+
+    public OrdersResource(OrdersService ordersService, OrdersRepository ordersRepository, UserService userService, MailService mailService, OrderDetailsService orderDetailsService, OrderDetailsRepository orderDetailsRepository, OrderPDFExporter orderPDFExporter) {
         this.ordersService = ordersService;
         this.ordersRepository = ordersRepository;
         this.userService = userService;
         this.mailService = mailService;
         this.orderDetailsService = orderDetailsService;
         this.orderDetailsRepository = orderDetailsRepository;
+        this.orderPDFExporter = orderPDFExporter;
     }
 
     /**
@@ -294,4 +300,15 @@ public class OrdersResource {
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @PostMapping(value="/orderexport/{id}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE})
+    public ResponseEntity<InputStreamResource> exportFilePDF(@PathVariable long id) throws IOException {
+        ByteArrayInputStream resource = orderPDFExporter.export(id);
+        return ResponseEntity
+            .ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=orderexport.pdf")
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(new InputStreamResource(resource));
+    }
+
 }

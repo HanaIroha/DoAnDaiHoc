@@ -93,4 +93,25 @@ export class OrderService {
   orderStatic(year) {
     return this.http.get(`${this.applicationConfigService.getEndpointFor('api/orderstatic/')}` + year, { responseType: 'text' });
   }
+
+  export(id) {
+    let url = this.applicationConfigService.getEndpointFor('api/orderexport/' + id);
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/pdf');
+    this.http.post(url,null,{headers: headers,responseType: 'blob' as 'json'}).subscribe(
+      (response: any) =>{
+          let dataType = response.type;
+          let binaryData = [];
+          binaryData.push(response);
+          let downloadLink = document.createElement('a');
+          downloadLink.href = window.URL.createObjectURL(new Blob(binaryData, {type: dataType}));
+          downloadLink.setAttribute('download', "donhang.pdf");
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+      }
+  )
+  }
+
+  
+
 }

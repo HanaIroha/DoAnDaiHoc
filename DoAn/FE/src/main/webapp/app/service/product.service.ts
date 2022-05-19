@@ -80,4 +80,5 @@ export class ProductService {
     const options = createRequestOption(req);
     return this.http.get<IProductSpec[]>(`${this.applicationConfigService.getEndpointFor('api/product-specsByProductId/')}` +id, { params: options, observe: 'response' });
   }
+  
 }

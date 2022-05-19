@@ -20,7 +20,7 @@
                                     <input type="text" class="form-control form-control-sm bg-secondary text-center" value="{{item.quantity}}">
                                 </div>
                             </td>
-                            <td class="align-middle">{{item.price|number}}đ</td>
+                            <td class="align-middle">{{item.price*item.quantity|number}}đ</td>
                         </tr>
                     </ng-container>
                 </tbody>
